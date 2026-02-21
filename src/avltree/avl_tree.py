@@ -114,6 +114,16 @@ class AVLTree:
             return self._r.get(x, default)
         return default
 
+    def items(self) -> list[tuple[int, Any]]:
+        """Return all (key, value) pairs in the tree in ascending key order.
+
+        Returns:
+            list: A list of (key, value) tuples, sorted by key.
+        """
+        result = []
+        self._inorder_traverse(result)
+        return result
+
     def set(self, x: int, value: Any) -> AVLTree:
         """Update the value associated with key x.
 
@@ -201,16 +211,6 @@ class AVLTree:
         self._update()
         t._update()
         return t
-
-    def items(self) -> list[tuple[int, Any]]:
-        """Return all (key, value) pairs in the tree in ascending key order.
-
-        Returns:
-            list: A list of (key, value) tuples, sorted by key.
-        """
-        result = []
-        self._inorder_traverse(result)
-        return result
 
     def _inorder_traverse(self, result: list[tuple[int, Any]]) -> None:
         """Add all nodes to the list using in-order traversal.
