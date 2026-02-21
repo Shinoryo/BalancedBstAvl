@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BalancedBstAvl"
-version = "0.1.0"
+version = "1.0.0"
 description = "AVL tree (self-balancing binary search tree) implementation."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -25,8 +25,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/example/BalancedBstAvl"
-Issues = "https://github.com/example/BalancedBstAvl/issues"
+Homepage = "https://github.com/Shinoryo/BalancedBstAvl"
+Issues = "https://github.com/Shinoryo/BalancedBstAvl/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6"]
