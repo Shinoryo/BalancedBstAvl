@@ -1,7 +1,7 @@
 ﻿from avltree import AVLTree
 
 
-def test_insert_and_items_sorted():
+def test_insert_and_items_sorted() -> None:
     tree = AVLTree()
     for key in [10, 5, 15, 3, 7, 12, 18]:
         tree = tree.insert(key, str(key))
@@ -17,7 +17,7 @@ def test_insert_and_items_sorted():
     ]
 
 
-def test_get_and_find():
+def test_get_and_find() -> None:
     tree = AVLTree()
     tree = tree.set(2, "a")
     tree = tree.set(1, "b")
@@ -29,7 +29,7 @@ def test_get_and_find():
     assert tree.get(4, "missing") == "missing"
 
 
-def test_set_updates_value():
+def test_set_updates_value() -> None:
     tree = AVLTree()
     tree = tree.set(5, "a")
     tree = tree.set(5, "b")
@@ -38,7 +38,7 @@ def test_set_updates_value():
     assert tree.items() == [(5, "b")]
 
 
-def test_delete_leaf_and_root():
+def test_delete_leaf_and_root() -> None:
     tree = AVLTree()
     tree = tree.set(2, "a")
     tree = tree.set(1, "b")
@@ -51,7 +51,7 @@ def test_delete_leaf_and_root():
     assert tree.items() == [(3, "c")]
 
 
-def test_delete_last_node_returns_empty_tree():
+def test_delete_last_node_returns_empty_tree() -> None:
     tree = AVLTree()
     tree = tree.set(1, "a")
 
