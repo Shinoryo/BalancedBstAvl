@@ -8,21 +8,23 @@ from typing import Any
 class AVLTree:
     """二分探索木(AVL木)の実装。
 
+    空の木は ``_key`` が ``None`` のノードで表現します。
+
     Attributes:
-        _key (int): ノードの値.
-        _value: キーに付随する値.
-        _l (AVLTree): 左の子ノード.
-        _r (AVLTree): 右の子ノード.
-        _h (int): ノードの高さ.
+        _key (int | None): ノードのキー。None の場合は空ノード。
+        _value: キーに付随する値。
+        _l (AVLTree | None): 左の子ノード。
+        _r (AVLTree | None): 右の子ノード。
+        _h (int): ノードの高さ。空ノードの場合は 0。
     """
 
     def __init__(self, key: int | None = None, value: Any = None) -> None:
-        """AVLTreeノードを初期化します.
+        """AVLTreeノードを初期化します。
 
         Args:
-            key (int, optional): ノードに格納する値. Noneの場合、空のノードに
-                なります (デフォルト: None).
-            value: 付随する値 (デフォルト: None).
+            key (int | None, optional): ノードに格納するキー。None の場合は
+                空ノードになります (デフォルト: None)。
+            value: 付随する値 (デフォルト: None)。
         """
         self._key = key
         self._value = value
@@ -34,13 +36,15 @@ class AVLTree:
             self._h = 0
 
     def delete(self, x: int) -> AVLTree:
-        """値xを木から削除します.
+        """キー x を木から削除します。
+
+        キーが存在しない場合は木は変化しません。
 
         Args:
-            x (int): 削除する値.
+            x (int): 削除するキー。
 
         Returns:
-            AVLTree: バランスが取られた木のルートノード.
+            AVLTree: バランスが取られた木のルートノード。
         """
         if self._key is None:
             return self
@@ -68,13 +72,13 @@ class AVLTree:
         return self._balance()
 
     def find(self, x: int) -> bool:
-        """値xが木に含まれるか判定します.
+        """キー x が木に含まれるか判定します。
 
         Args:
-            x (int): 検索する値.
+            x (int): 検索するキー。
 
         Returns:
-            bool: 値が見つかればTrue、見つからなければFalse.
+            bool: キーが見つかれば True、見つからなければ False。
         """
         if self._key is None:
             return False
@@ -89,14 +93,14 @@ class AVLTree:
         return False
 
     def get(self, x: int, default: Any = None) -> Any:
-        """キーxに付随する値を取得します.
+        """キー x に付随する値を取得します。
 
         Args:
-            x (int): 検索するキー.
-            default: キーが見つからない場合のデフォルト値 (デフォルト: None).
+            x (int): 検索するキー。
+            default: キーが見つからない場合のデフォルト値 (デフォルト: None)。
 
         Returns:
-            キーが見つかればその値、見つからなければdefaultを返します.
+            キーが見つかればその値、見つからなければ default を返します。
         """
         if self._key is None:
             return default
@@ -111,16 +115,16 @@ class AVLTree:
         return default
 
     def set(self, x: int, value: Any) -> AVLTree:
-        """キーxの付随する値を更新します.
+        """キー x の付随する値を更新します。
 
-        キーが存在しない場合は合わせて挿入します。
+        キーが存在しない場合は新規に挿入します。
 
         Args:
-            x (int): 更新するキー.
-            value: 設定する値.
+            x (int): 更新するキー。
+            value: 設定する値。
 
         Returns:
-            AVLTree: バランスが取られた木のルートノード.
+            AVLTree: バランスが取られた木のルートノード。
         """
         if self._key is None:
             self._key = x
@@ -142,22 +146,22 @@ class AVLTree:
         return self._balance()
 
     def _height(self, t: AVLTree | None) -> int:
-        """ノードtの高さを返します.
+        """ノード t の高さを返します。
 
         Args:
-            t (AVLTree or None): 対象のノード.
+            t (AVLTree | None): 対象のノード。
 
         Returns:
-            int: ノードの高さ。ノードがNoneの場合は0.
+            int: ノードの高さ。ノードが None の場合は 0。
         """
         if t:
             return t._h
         return 0
 
     def _update(self) -> None:
-        """このノードの高さを更新します.
+        """このノードの高さを更新します。
 
-        左右の子ノードの高さから自分の高さを再計算します.
+        左右の子ノードの高さから自分の高さを再計算します。
         """
         if self._key is None:
             self._h = 0
@@ -165,18 +169,18 @@ class AVLTree:
         self._h = max(self._height(self._l), self._height(self._r)) + 1
 
     def _bf(self) -> int:
-        """このノードのバランスファクターを計算します.
+        """このノードのバランスファクターを計算します。
 
         Returns:
-            int: 左部分木の高さと右部分木の高さの差.
+            int: 左部分木の高さと右部分木の高さの差。
         """
         return self._height(self._l) - self._height(self._r)
 
     def _rot_r(self) -> AVLTree:
-        """右方向に回転します(左の子が新しいルートになります).
+        """右方向に回転します (左の子が新しいルートになります)。
 
         Returns:
-            AVLTree: 回転後の新しいルートノード.
+            AVLTree: 回転後の新しいルートノード。
         """
         t = self._l
         self._l = t._r
@@ -186,10 +190,10 @@ class AVLTree:
         return t
 
     def _rot_l(self) -> AVLTree:
-        """左方向に回転します(右の子が新しいルートになります).
+        """左方向に回転します (右の子が新しいルートになります)。
 
         Returns:
-            AVLTree: 回転後の新しいルートノード.
+            AVLTree: 回転後の新しいルートノード。
         """
         t = self._r
         self._r = t._l
@@ -199,20 +203,20 @@ class AVLTree:
         return t
 
     def items(self) -> list[tuple[int, Any]]:
-        """木に含まれるすべての(キー, 値)ペアをキーの昇順で返します.
+        """木に含まれるすべての (キー, 値) をキーの昇順で返します。
 
         Returns:
-            list: (キー, 値)のタプルのリスト、キー順でソート済み.
+            list: (キー, 値) のタプルのリスト、キー順でソート済み。
         """
         result = []
         self._inorder_traverse(result)
         return result
 
     def _inorder_traverse(self, result: list[tuple[int, Any]]) -> None:
-        """中順走査で全ノードをリストに追加します(プライベートメソッド).
+        """中順走査で全ノードをリストに追加します。
 
         Args:
-            result (list): 走査結果を格納するリスト.
+            result (list): 走査結果を格納するリスト。
         """
         if self._key is None:
             return
@@ -223,10 +227,10 @@ class AVLTree:
             self._r._inorder_traverse(result)
 
     def _balance(self) -> AVLTree:
-        """このノードをバランスさせます.
+        """このノードをバランスさせます。
 
         Returns:
-            AVLTree: バランスが取られたノード.
+            AVLTree: バランスが取られたノード。
         """
         if self._key is None:
             return self
