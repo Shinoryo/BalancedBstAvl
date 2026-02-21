@@ -25,7 +25,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Shinoryo/BalancedBstAvl"
+Source = "https://github.com/Shinoryo/BalancedBstAvl"
 Issues = "https://github.com/Shinoryo/BalancedBstAvl/issues"
 
 [project.optional-dependencies]
