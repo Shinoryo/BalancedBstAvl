@@ -3,20 +3,22 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "avltree"
+name = "BalancedBstAvl"
 version = "0.1.0"
 description = "AVL tree (self-balancing binary search tree) implementation."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 license = { file = "LICENSE" }
 authors = [{ name = "BalancedBstAvl contributors" }]
 keywords = ["avl", "bst", "tree", "data-structure"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries",
@@ -65,7 +67,7 @@ exclude = [
 ]
 line-length = 88
 indent-width = 4
-target-version = "py311"
+target-version = "py39"
 
 [tool.ruff.lint]
 select = ["ALL"]

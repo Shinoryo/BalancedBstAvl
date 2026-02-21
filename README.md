@@ -5,7 +5,7 @@ AVL木（自己平衡二分探索木）のシンプルな実装です。キー�
 ## インストール
 
 ```bash
-pip install avltree
+pip install BalancedBstAvl
 ```
 
 ## 使い方
