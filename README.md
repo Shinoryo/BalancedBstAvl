@@ -28,7 +28,7 @@ print(tree.items())
 
 ## 機能
 
-- キーの挿入/更新: `set(x, value)`
+- キーの挿入/更新: `set(x, value)` (存在しない場合は挿入、存在する場合は更新)
 - キーの削除: `delete(x)`
 - キーの存在確認: `find(x)`
 - 値の取得: `get(x, default=None)`
