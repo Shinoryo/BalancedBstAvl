@@ -1,10 +1,10 @@
 ﻿from avltree import AVLTree
 
 
-def test_insert_and_items_sorted() -> None:
+def test_set_and_items_sorted() -> None:
     tree = AVLTree()
     for key in [10, 5, 15, 3, 7, 12, 18]:
-        tree = tree.insert(key, str(key))
+        tree = tree.set(key, str(key))
 
     assert tree.items() == [
         (3, "3"),

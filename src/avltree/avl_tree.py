@@ -33,34 +33,6 @@ class AVLTree:
         else:
             self._h = 0
 
-    def insert(self, x: int, value: Any = None) -> AVLTree:
-        """値xを木に挿入します.
-
-        Args:
-            x (int): 挿入する値.
-            value: xに付随する値 (デフォルト: None).
-
-        Returns:
-            AVLTree: バランスが取られた木のルートノード.
-        """
-        if self._key is None:
-            self._key = x
-            self._value = value
-            self._h = 1
-            return self
-
-        if x < self._key:
-            if self._l:
-                self._l = self._l.insert(x, value)
-            else:
-                self._l = AVLTree(x, value)
-        elif x > self._key:
-            if self._r:
-                self._r = self._r.insert(x, value)
-            else:
-                self._r = AVLTree(x, value)
-        return self._balance()
-
     def delete(self, x: int) -> AVLTree:
         """値xを木から削除します.
 
