@@ -28,7 +28,10 @@ class AVLTree:
         self._value = value
         self._l = None
         self._r = None
-        self._h = 1 if key is not None else 0
+        if key is not None:
+            self._h = 1
+        else:
+            self._h = 0
 
     def insert(self, x: int, value: Any = None) -> AVLTree:
         """値xを木に挿入します.
@@ -76,9 +79,13 @@ class AVLTree:
             self._r = self._r.delete(x)
         elif x == self._key:
             if not self._l:
-                return self._r if self._r is not None else AVLTree()
+                if self._r is not None:
+                    return self._r
+                return AVLTree()
             if not self._r:
-                return self._l if self._l is not None else AVLTree()
+                if self._l is not None:
+                    return self._l
+                return AVLTree()
             t = self._r
             while t._l:
                 t = t._l
