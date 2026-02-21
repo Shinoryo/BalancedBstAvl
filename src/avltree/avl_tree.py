@@ -6,25 +6,25 @@ from typing import Any
 
 
 class AVLTree:
-    """二分探索木(AVL木)の実装。
+    """Implementation of a Binary Search Tree (AVL tree).
 
-    空の木は ``_key`` が ``None`` のノードで表現します。
+    An empty tree is represented by a node with ``_key`` set to ``None``.
 
     Attributes:
-        _key (int | None): ノードのキー。None の場合は空ノード。
-        _value: キーに付随する値。
-        _l (AVLTree | None): 左の子ノード。
-        _r (AVLTree | None): 右の子ノード。
-        _h (int): ノードの高さ。空ノードの場合は 0。
+        _key (int | None): The node's key. None if the node is empty.
+        _value: The value associated with the key.
+        _l (AVLTree | None): The left child node.
+        _r (AVLTree | None): The right child node.
+        _h (int): The height of the node. 0 if the node is empty.
     """
 
     def __init__(self, key: int | None = None, value: Any = None) -> None:
-        """AVLTreeノードを初期化します。
+        """Initialize an AVLTree node.
 
         Args:
-            key (int | None, optional): ノードに格納するキー。None の場合は
-                空ノードになります (デフォルト: None)。
-            value: 付随する値 (デフォルト: None)。
+            key (int | None, optional): The key to store in the node. If None,
+                the node becomes empty (default: None).
+            value: The associated value (default: None).
         """
         self._key = key
         self._value = value
@@ -36,15 +36,15 @@ class AVLTree:
             self._h = 0
 
     def delete(self, x: int) -> AVLTree:
-        """キー x を木から削除します。
+        """Delete key x from the tree.
 
-        キーが存在しない場合は木は変化しません。
+        If the key does not exist, the tree remains unchanged.
 
         Args:
-            x (int): 削除するキー。
+            x (int): The key to delete.
 
         Returns:
-            AVLTree: バランスが取られた木のルートノード。
+            AVLTree: The root node of the balanced tree.
         """
         if self._key is None:
             return self
@@ -72,13 +72,13 @@ class AVLTree:
         return self._balance()
 
     def find(self, x: int) -> bool:
-        """キー x が木に含まれるか判定します。
+        """Check if key x is in the tree.
 
         Args:
-            x (int): 検索するキー。
+            x (int): The key to search for.
 
         Returns:
-            bool: キーが見つかれば True、見つからなければ False。
+            bool: True if the key is found, False otherwise.
         """
         if self._key is None:
             return False
@@ -93,14 +93,14 @@ class AVLTree:
         return False
 
     def get(self, x: int, default: Any = None) -> Any:
-        """キー x に付随する値を取得します。
+        """Retrieve the value associated with key x.
 
         Args:
-            x (int): 検索するキー。
-            default: キーが見つからない場合のデフォルト値 (デフォルト: None)。
+            x (int): The key to search for.
+            default: The default value if the key is not found (default: None).
 
         Returns:
-            キーが見つかればその値、見つからなければ default を返します。
+            The value if the key is found, otherwise the default value.
         """
         if self._key is None:
             return default
@@ -115,16 +115,16 @@ class AVLTree:
         return default
 
     def set(self, x: int, value: Any) -> AVLTree:
-        """キー x の付随する値を更新します。
+        """Update the value associated with key x.
 
-        キーが存在しない場合は新規に挿入します。
+        If the key does not exist, it is inserted.
 
         Args:
-            x (int): 更新するキー。
-            value: 設定する値。
+            x (int): The key to update.
+            value: The value to set.
 
         Returns:
-            AVLTree: バランスが取られた木のルートノード。
+            AVLTree: The root node of the balanced tree.
         """
         if self._key is None:
             self._key = x
@@ -146,22 +146,22 @@ class AVLTree:
         return self._balance()
 
     def _height(self, t: AVLTree | None) -> int:
-        """ノード t の高さを返します。
+        """Return the height of node t.
 
         Args:
-            t (AVLTree | None): 対象のノード。
+            t (AVLTree | None): The target node.
 
         Returns:
-            int: ノードの高さ。ノードが None の場合は 0。
+            int: The height of the node. Returns 0 if the node is None.
         """
         if t:
             return t._h
         return 0
 
     def _update(self) -> None:
-        """このノードの高さを更新します。
+        """Update the height of this node.
 
-        左右の子ノードの高さから自分の高さを再計算します。
+        Recalculates the height based on the heights of the left and right children.
         """
         if self._key is None:
             self._h = 0
@@ -169,18 +169,18 @@ class AVLTree:
         self._h = max(self._height(self._l), self._height(self._r)) + 1
 
     def _bf(self) -> int:
-        """このノードのバランスファクターを計算します。
+        """Calculate the balance factor of this node.
 
         Returns:
-            int: 左部分木の高さと右部分木の高さの差。
+            int: The difference between the height of the left and right subtrees.
         """
         return self._height(self._l) - self._height(self._r)
 
     def _rot_r(self) -> AVLTree:
-        """右方向に回転します (左の子が新しいルートになります)。
+        """Rotate right (left child becomes the new root).
 
         Returns:
-            AVLTree: 回転後の新しいルートノード。
+            AVLTree: The new root node after rotation.
         """
         t = self._l
         self._l = t._r
@@ -190,10 +190,10 @@ class AVLTree:
         return t
 
     def _rot_l(self) -> AVLTree:
-        """左方向に回転します (右の子が新しいルートになります)。
+        """Rotate left (right child becomes the new root).
 
         Returns:
-            AVLTree: 回転後の新しいルートノード。
+            AVLTree: The new root node after rotation.
         """
         t = self._r
         self._r = t._l
@@ -203,20 +203,20 @@ class AVLTree:
         return t
 
     def items(self) -> list[tuple[int, Any]]:
-        """木に含まれるすべての (キー, 値) をキーの昇順で返します。
+        """Return all (key, value) pairs in the tree in ascending key order.
 
         Returns:
-            list: (キー, 値) のタプルのリスト、キー順でソート済み。
+            list: A list of (key, value) tuples, sorted by key.
         """
         result = []
         self._inorder_traverse(result)
         return result
 
     def _inorder_traverse(self, result: list[tuple[int, Any]]) -> None:
-        """中順走査で全ノードをリストに追加します。
+        """Add all nodes to the list using in-order traversal.
 
         Args:
-            result (list): 走査結果を格納するリスト。
+            result (list): The list to store the traversal results.
         """
         if self._key is None:
             return
@@ -227,10 +227,10 @@ class AVLTree:
             self._r._inorder_traverse(result)
 
     def _balance(self) -> AVLTree:
-        """このノードをバランスさせます。
+        """Balance this node.
 
         Returns:
-            AVLTree: バランスが取られたノード。
+            AVLTree: The balanced node.
         """
         if self._key is None:
             return self

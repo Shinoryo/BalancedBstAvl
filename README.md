@@ -1,14 +1,14 @@
 ﻿# AVL Tree Library
 
-AVL木（自己平衡二分探索木）のシンプルな実装です。キーに付随する値を保持でき、挿入・削除・検索を $O(\log n)$ で行います。
+A simple implementation of an AVL tree (self-balancing binary search tree). It stores values associated with keys and performs insertion, deletion, and search operations in $O(\log n)$ time.
 
-## インストール
+## Installation
 
 ```bash
 pip install BalancedBstAvl
 ```
 
-## 使い方
+## Usage
 
 ```python
 from avltree import AVLTree
@@ -26,31 +26,31 @@ tree = tree.delete(10)
 print(tree.items())
 ```
 
-## 機能
+## Features
 
-- キーの挿入/更新: `set(x, value)` (存在しない場合は挿入、存在する場合は更新)
-- キーの削除: `delete(x)`
-- キーの存在確認: `find(x)`
-- 値の取得: `get(x, default=None)`
-- 走査: `items()` (キー昇順)
+- Insert/Update keys: `set(x, value)` (inserts if not present, updates if exists)
+- Delete keys: `delete(x)`
+- Check key existence: `find(x)`
+- Retrieve values: `get(x, default=None)`
+- Traverse: `items()` (in ascending key order)
 
-## 依存ライブラリー
+## Dependencies
 
-- 実行時: なし (Python標準ライブラリーのみ)
-- 開発時: `pytest` など (開発用依存は `pip install -e .[dev]` で導入)
+- Runtime: None (Python standard library only)
+- Development: `pytest` and others (install with `pip install -e .[dev]`)
 
-## 動作保証環境
+## Supported Environments
 
 - Python 3.9, 3.10, 3.11, 3.12, 3.13
 - OS: Windows / macOS / Linux
 
-## 開発
+## Development
 
 ```bash
 pip install -e .[dev]
 pytest
 ```
 
-## ライセンス
+## License
 
 MIT License
