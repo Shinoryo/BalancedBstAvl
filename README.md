@@ -34,6 +34,16 @@ print(tree.items())
 - 値の取得: `get(x, default=None)`
 - 走査: `items()` (キー昇順)
 
+## 依存ライブラリー
+
+- 実行時: なし (Python標準ライブラリーのみ)
+- 開発時: `pytest` など (開発用依存は `pip install -e .[dev]` で導入)
+
+## 動作保証環境
+
+- Python 3.9, 3.10, 3.11, 3.12, 3.13
+- OS: Windows / macOS / Linux
+
 ## 開発
 
 ```bash
