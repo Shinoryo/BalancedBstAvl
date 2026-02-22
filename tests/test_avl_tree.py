@@ -1076,26 +1076,32 @@ def test_delete_2child_with_rebalance() -> None:
     left_left_left = AVLTree(5, "i")
     left_left = AVLTree(10, "h")
     left_left._l = left_left_left
+    left_left._h = 2
     left_right = AVLTree(25, "j")
     left = AVLTree(20, "d")
     left._l = left_left
     left._r = left_right
+    left._h = 3
     right_left_left = AVLTree(35, "k")
     right_left_right = AVLTree(45, "l")
     right_left = AVLTree(40, "e")
     right_left._l = right_left_left
     right_left._r = right_left_right
+    right_left._h = 2
     right_right_left = AVLTree(60, "f")
     right_right_right = AVLTree(80, "g")
     right_right = AVLTree(70, "c")
     right_right._l = right_right_left
     right_right._r = right_right_right
+    right_right._h = 2
     right = AVLTree(50, "a")
     right._l = right_left
     right._r = right_right
+    right._h = 3
     t = AVLTree(30, "b")
     t._l = left
     t._r = right
+    t._h = 4
     t = t.delete(30)
     _assert_balanced(t)
     assert t._key == 35
