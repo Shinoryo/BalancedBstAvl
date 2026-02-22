@@ -1,4 +1,4 @@
-﻿"""AVL tree (self-balancing binary search tree) implementation."""
+"""AVL tree (self-balancing binary search tree) implementation."""
 
 from __future__ import annotations
 
