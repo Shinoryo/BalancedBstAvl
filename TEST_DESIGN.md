@@ -1,4 +1,4 @@
-﻿# AVL Tree Test Case Design Document
+# AVL Tree Test Case Design Document
 
 ## Overview
 
