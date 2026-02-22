@@ -1,4 +1,57 @@
-﻿[tool.ruff]
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BalancedBstAvl"
+version = "1.0.0"
+description = "AVL tree (self-balancing binary search tree) implementation."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "BalancedBstAvl contributors" }]
+keywords = ["avl", "bst", "tree", "data-structure"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Source = "https://github.com/Shinoryo/BalancedBstAvl"
+Issues = "https://github.com/Shinoryo/BalancedBstAvl/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "init: constructor tests",
+    "set: insertion and update tests",
+    "get: lookup tests",
+    "find: membership tests",
+    "delete: deletion tests",
+    "items: traversal tests",
+    "valuetype: value type variety tests",
+    "integration: integration tests - 0/1/2 switch coverage",
+    "performance: large-scale tree performance and balance tests",
+]
+
+[tool.ruff]
 exclude = [
     ".bzr",
     ".direnv",
@@ -25,11 +78,23 @@ exclude = [
 ]
 line-length = 88
 indent-width = 4
-target-version = "py311"
+target-version = "py39"
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["BLE001", "D", "INP001", "T201", "TRY401"]
+ignore = [
+    "ANN401",  # Dynamically typed expressions (Any) are allowed
+    "BLE001",
+    "D",
+    "INP001",
+    "S101",    # Allow assert statements
+    "SLF001",  # Private member accessed
+    "T201",
+    "TRY401",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PLR2004"]
 
 [tool.ruff.format]
 quote-style = "double"
