@@ -55,13 +55,9 @@ class AVLTree:
             self._r = self._r.delete(x)
         elif x == self._key:
             if not self._l:
-                if self._r is not None:
-                    return self._r
-                return AVLTree()
+                return self._r or AVLTree()
             if not self._r:
-                if self._l is not None:
-                    return self._l
-                return AVLTree()
+                return self._l or AVLTree()
             t = self._r
             while t._l:
                 t = t._l
