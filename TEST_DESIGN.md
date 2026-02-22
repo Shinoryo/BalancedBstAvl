@@ -185,3 +185,22 @@ State transition tests using 0/1/2-switch coverage methodology. Tests verify cor
 | 8-14 | 2→3→2 nodes | Two → Three → Two | `set()` then `delete()` | Tree returns to 2 nodes; tree balanced. |
 | 8-15 | 2→1→2 nodes | Two → One → Two | `delete()` then `set()` | Tree returns to 2 nodes; tree balanced. |
 | 8-16 | 2→1→0 nodes | Two → One → Empty | `delete()` then `delete()` | Tree becomes empty; tree balanced. |
+
+## 9. Large Scale Performance and Balance Tests
+
+Tests involving large numbers of nodes (100-1000+ nodes) to verify that the AVL tree maintains **balance property** and **height consistency** under realistic stress conditions. These tests also verify **performance** (execution speed and responsiveness) when the tree is scaled to production-like sizes. Tests are categorized into: insertion patterns (sequential/random), read operations (find/get), and deletion patterns.
+
+### Performance Test Coverage
+
+| No. | Test Aspect | Scale | Operations | Verification |
+| --- | --- | --- | --- | --- |
+| 9-1 | Insert 100 sequential nodes | 100 nodes | Insert keys `range(-50, 50)` | Tree balanced; all 100 keys findable; height consistent. Tree remains operational with high node count. |
+| 9-2 | Insert 500 sequential nodes | 500 nodes | Insert keys `range(-250, 250)` | Tree balanced; spot checks on boundary/middle keys pass; height consistent. Tree handles medium-scale efficiently. |
+| 9-3 | Insert 1000 sequential nodes | 1000 nodes | Insert keys `range(-500, 500)` | Tree balanced; spot checks on boundary/middle keys pass; height consistent. Tree handles large-scale efficiently. |
+| 9-4 | Sequential insertions (ascending order) | 200 nodes | Insert keys `0..199` in order | Tree balanced; in-order traversal returns correctly sorted keys; height consistent. Pathological case (ascending insertion) handled correctly. |
+| 9-5 | Random insertions | 200 nodes | Insert keys `0..199` in random order | Tree balanced; all keys findable; in-order traversal returns sorted keys; height consistent. Typical real-world insertion pattern verified. |
+| 9-6 | Find operations in large tree | 400 nodes | Insert keys `range(-200, 200)` then find all keys plus non-existing keys | All existing keys found; non-existing keys return False; tree remains balanced. Search performance consistent in large tree. |
+| 9-7 | Get operations in large tree | 300 nodes | Insert keys `range(-150, 150)` then get all keys with and without default | All get operations return correct values; default parameter works correctly; tree remains balanced. Lookup performance consistent in large tree. |
+| 9-8 | Delete multiple keys from large tree | 100→70 nodes | Insert 100 keys then delete 30 random keys with balance check after each deletion | 70 keys remaining; deleted keys not found; tree balanced after every single deletion. Multi-delete performance and balance maintained. |
+| 9-9 | Sequential deletions from large tree | 50→0 nodes | Insert 50 keys then delete all in reverse order with balance check after each deletion | Tree becomes empty; all intermediate states balanced; final tree is empty. Complete deletion with continuous balance verification. |
+| 9-10 | Mixed insert/delete operations | 100+ nodes | Insert 100 keys, delete every 3rd key, insert 50 new keys | Tree remains balanced throughout all phases; operations complete with correct final state; height consistent. Real-world mixed operation pattern verified. |

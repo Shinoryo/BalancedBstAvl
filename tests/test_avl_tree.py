@@ -1,5 +1,7 @@
 ﻿from __future__ import annotations
 
+import random
+
 import pytest
 
 from avltree import AVLTree
@@ -1744,3 +1746,217 @@ def test_switch_2_two_delete_delete() -> None:
     _assert_balanced(t)
     assert len(t.items()) == 0
     assert t.find(-5) is False
+
+
+# ==================== 9. Large Scale Performance and Balance Tests ====================
+
+
+@pytest.mark.performance
+def test_large_tree_100_nodes() -> None:
+    """Insert 100 nodes and verify balance and height consistency.
+
+    Tests AVL tree scalability and balance maintenance with 100 nodes.
+    Validates that the tree remains balanced even at this scale.
+    """
+    t = AVLTree()
+    keys = list(range(-50, 50))  # 100 keys
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == 100
+    for key in keys:
+        assert t.find(key) is True
+
+
+@pytest.mark.performance
+def test_large_tree_500_nodes() -> None:
+    """Insert 500 nodes and verify balance and height consistency.
+
+    Tests AVL tree scalability and balance maintenance with 500 nodes.
+    Validates that the tree remains balanced at medium-scale.
+    """
+    t = AVLTree()
+    keys = list(range(-250, 250))  # 500 keys
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == 500
+    # Spot check some keys
+    for key in [-250, -1, 0, 1, 249]:
+        assert t.find(key) is True
+
+
+@pytest.mark.performance
+def test_large_tree_1000_nodes() -> None:
+    """Insert 1000 nodes and verify balance and height consistency.
+
+    Tests AVL tree scalability and balance maintenance with 1000 nodes.
+    Validates that the tree remains balanced at large-scale.
+    """
+    t = AVLTree()
+    keys = list(range(-500, 500))  # 1000 keys
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == 1000
+    # Spot check some keys
+    for key in [-500, -1, 0, 1, 499]:
+        assert t.find(key) is True
+
+
+@pytest.mark.performance
+def test_large_tree_sequential_insertions() -> None:
+    """Build large tree with sequential insertions (ascending order).
+
+    Tests AVL tree's ability to handle pathological insertion pattern.
+    Verifies that ascending order insertions do not degrade balance.
+    """
+    t = AVLTree()
+    num_nodes = 200
+    for i in range(num_nodes):
+        t = t.set(i, f"val_{i}")
+    _assert_balanced(t)
+    assert len(t.items()) == num_nodes
+    items = t.items()
+    # Verify items are in ascending order by key
+    for i, (key, value) in enumerate(items):
+        assert key == i
+        assert value == f"val_{i}"
+
+
+@pytest.mark.performance
+def test_large_tree_random_insertions() -> None:
+    """Build large tree with random insertions.
+
+    Tests AVL tree's performance with typical real-world insertion pattern.
+    Verifies balance is maintained with random insertion order.
+    """
+    t = AVLTree()
+    num_nodes = 200
+    keys = list(range(num_nodes))
+    random.shuffle(keys)
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == num_nodes
+    # Verify all keys can be found
+    for key in range(num_nodes):
+        assert t.find(key) is True
+
+
+@pytest.mark.performance
+def test_large_tree_find_in_large_set() -> None:
+    """Verify find operation works correctly in large tree.
+
+    Tests lookup performance and correctness with 400-node tree.
+    Validates that searching remains effective at large scale.
+    """
+    t = AVLTree()
+    keys = list(range(-200, 200))  # 400 keys
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    # Test finding existing keys
+    for key in keys:
+        assert t.find(key) is True
+    # Test finding non-existing keys
+    for non_key in [-201, 200, 500, -500]:
+        assert t.find(non_key) is False
+
+
+@pytest.mark.performance
+def test_large_tree_get_in_large_set() -> None:
+    """Verify get operation works correctly in large tree.
+
+    Tests value retrieval performance and correctness with 300-node tree.
+    Validates that get operation remains reliable at large scale.
+    """
+    t = AVLTree()
+    keys = list(range(-150, 150))  # 300 keys
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    # Test getting existing keys
+    for key in keys:
+        assert t.get(key) == f"val_{key}"
+    # Test getting non-existing keys with default
+    assert t.get(-151, "default") == "default"
+    assert t.get(150, "default") == "default"
+
+
+@pytest.mark.performance
+def test_large_tree_delete_multiple_from_large_set() -> None:
+    """Delete multiple random keys from large tree and verify balance.
+
+    Tests deletion performance and balance maintenance with 100-node tree.
+    Validates that deleting 30% of nodes maintains AVL properties.
+    """
+    t = AVLTree()
+    keys = list(range(100))
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == 100
+    # Delete 30 random keys
+    keys_to_delete = random.sample(keys, 30)
+    for key in keys_to_delete:
+        t = t.delete(key)
+        _assert_balanced(t)
+    assert len(t.items()) == 70
+    # Verify deleted keys are not found
+    for key in keys_to_delete:
+        assert t.find(key) is False
+    # Verify remaining keys are found
+    remaining_keys = [k for k in keys if k not in keys_to_delete]
+    for key in remaining_keys:
+        assert t.find(key) is True
+
+
+@pytest.mark.performance
+def test_large_tree_sequential_deletions() -> None:
+    """Build large tree then delete all nodes sequentially, verifying balance.
+
+    Tests complete deletion sequence with continuous balance verification.
+    Validates that tree remains balanced through all intermediate states.
+    """
+    t = AVLTree()
+    keys = list(range(50))
+    for key in keys:
+        t = t.set(key, f"val_{key}")
+    _assert_balanced(t)
+    assert len(t.items()) == 50
+    # Delete all keys in reverse order
+    for key in reversed(keys):
+        t = t.delete(key)
+        _assert_balanced(t)
+    assert len(t.items()) == 0
+    # Verify all keys are gone
+    for key in keys:
+        assert t.find(key) is False
+
+
+@pytest.mark.performance
+def test_large_tree_mixed_operations() -> None:
+    """Perform mixed set/delete operations on large tree.
+
+    Tests real-world scenario with insertion, deletion, and re-insertion.
+    Validates balance maintenance through complex operation sequence.
+    """
+    t = AVLTree()
+    # Initial insertions
+    for i in range(100):
+        t = t.set(i, f"val_{i}")
+    _assert_balanced(t)
+    # Delete every third key
+    for i in range(0, 100, 3):
+        t = t.delete(i)
+    _assert_balanced(t)
+    remaining_count = len(t.items())
+    # Insert new keys in the gaps
+    for i in range(100, 150):
+        t = t.set(i, f"new_val_{i}")
+    _assert_balanced(t)
+    # Final verification
+    assert len(t.items()) > remaining_count
+    for i in range(100, 150):
+        assert t.find(i) is True

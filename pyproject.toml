@@ -48,6 +48,7 @@ markers = [
     "items: traversal tests",
     "valuetype: value type variety tests",
     "integration: integration tests - 0/1/2 switch coverage",
+    "performance: large-scale tree performance and balance tests",
 ]
 
 [tool.ruff]
