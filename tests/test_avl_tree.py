@@ -2,6 +2,23 @@
 
 from avltree import AVLTree
 
+
+def _assert_avl_balance(node: AVLTree | None, min_key: int | None = None, max_key: int | None = None) -> int:
+    if node is None or node._key is None:
+        return 0
+    if min_key is not None:
+        assert node._key > min_key
+    if max_key is not None:
+        assert node._key < max_key
+    left_h = _assert_avl_balance(node._l, min_key, node._key)
+    right_h = _assert_avl_balance(node._r, node._key, max_key)
+    assert abs(left_h - right_h) <= 1
+    return max(left_h, right_h) + 1
+
+
+def _assert_balanced(tree: AVLTree) -> None:
+    _assert_avl_balance(tree)
+
 # ==================== 1. __init__ (Constructor) ====================
 
 @pytest.mark.init
@@ -42,6 +59,7 @@ def test_set_to_empty_tree() -> None:
     """Test adding a node to an empty tree."""
     t = AVLTree()
     t = t.set(5, "a")
+    _assert_balanced(t)
     assert t._key == 5
     assert t._value == "a"
 
@@ -52,6 +70,7 @@ def test_set_update_root() -> None:
     t = AVLTree()
     t = t.set(5, "old")
     t = t.set(5, "new")
+    _assert_balanced(t)
     assert t._key == 5
     assert t._value == "new"
 
@@ -62,6 +81,7 @@ def test_set_insert_left() -> None:
     t = AVLTree()
     t = t.set(10, "a")
     t = t.set(5, "b")
+    _assert_balanced(t)
     assert t._key == 10
     assert t._l._key == 5
     assert t._l._value == "b"
@@ -74,6 +94,7 @@ def test_set_update_left() -> None:
     t = t.set(10, "a")
     t = t.set(5, "b")
     t = t.set(5, "b_new")
+    _assert_balanced(t)
     assert t._l._value == "b_new"
 
 
@@ -86,6 +107,7 @@ def test_set_left_left_no_rebalance() -> None:
     t = t.set(70, "c")
     t = t.set(60, "d")
     t = t.set(20, "f")
+    _assert_balanced(t)
     assert t._key == 50
     assert t._l._key == 30
     assert t._l._l._key == 20
@@ -102,6 +124,7 @@ def test_set_left_left_with_rebalance() -> None:
     t = t.set(10, "a")
     t = t.set(5, "b")
     t = t.set(3, "c")
+    _assert_balanced(t)
     assert t._key == 5
     assert t._l._key == 3
     assert t._l._value == "c"
@@ -119,6 +142,7 @@ def test_set_update_left_left() -> None:
     t = t.set(60, "d")
     t = t.set(20, "d")
     t = t.set(20, "d_new")
+    _assert_balanced(t)
     assert t._l._l._value == "d_new"
 
 
@@ -129,6 +153,7 @@ def test_set_left_right_no_rebalance() -> None:
     t = t.set(20, "a")
     t = t.set(10, "b")
     t = t.set(30, "c")
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._l._value == "b"
@@ -143,6 +168,7 @@ def test_set_left_right_with_rebalance() -> None:
     t = t.set(10, "a")
     t = t.set(3, "b")
     t = t.set(5, "c")
+    _assert_balanced(t)
     assert t._key == 5
     assert t._l._key == 3
     assert t._l._value == "b"
@@ -158,6 +184,7 @@ def test_set_update_left_right() -> None:
     t = t.set(10, "b")
     t = t.set(30, "c")
     t = t.set(30, "c_new")
+    _assert_balanced(t)
     assert t._r._value == "c_new"
 
 
@@ -167,6 +194,7 @@ def test_set_insert_right() -> None:
     t = AVLTree()
     t = t.set(10, "a")
     t = t.set(15, "b")
+    _assert_balanced(t)
     assert t._key == 10
     assert t._r._key == 15
     assert t._r._value == "b"
@@ -179,6 +207,7 @@ def test_set_update_right() -> None:
     t = t.set(10, "a")
     t = t.set(15, "b")
     t = t.set(15, "b_new")
+    _assert_balanced(t)
     assert t._r._value == "b_new"
 
 
@@ -190,6 +219,7 @@ def test_set_right_left_no_rebalance() -> None:
     t = t.set(10, "b")
     t = t.set(40, "c")
     t = t.set(35, "d")
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._l._value == "b"
@@ -206,6 +236,7 @@ def test_set_right_left_with_rebalance() -> None:
     t = t.set(30, "a")
     t = t.set(40, "b")
     t = t.set(35, "c")
+    _assert_balanced(t)
     assert t._key == 35
     assert t._l._key == 30
     assert t._l._value == "a"
@@ -222,6 +253,7 @@ def test_set_update_right_left() -> None:
     t = t.set(40, "c")
     t = t.set(35, "d")
     t = t.set(35, "d_new")
+    _assert_balanced(t)
     assert t._r._l._value == "d_new"
 
 
@@ -233,6 +265,7 @@ def test_set_right_right_no_rebalance() -> None:
     t = t.set(10, "b")
     t = t.set(25, "c")
     t = t.set(30, "d")
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._l._value == "b"
@@ -249,6 +282,7 @@ def test_set_right_right_with_rebalance() -> None:
     t = t.set(30, "a")
     t = t.set(40, "b")
     t = t.set(50, "c")
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 30
     assert t._l._value == "a"
@@ -265,6 +299,7 @@ def test_set_update_right_right() -> None:
     t = t.set(25, "c")
     t = t.set(30, "d")
     t = t.set(30, "d_new")
+    _assert_balanced(t)
     assert t._r._r._value == "d_new"
 
 
@@ -555,6 +590,7 @@ def test_delete_root_no_rebalance() -> None:
     t = AVLTree(10, "a")
     t._l = left
     t = t.delete(10)
+    _assert_balanced(t)
     assert t._key == 5
     assert t._value == "b"
     assert t._l is None
@@ -574,6 +610,7 @@ def test_delete_root_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(60)
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._l._l._key == 5
@@ -586,6 +623,7 @@ def test_delete_root_not_found() -> None:
     """Test deleting from root when target not found."""
     t = AVLTree()
     t = t.delete(5)
+    _assert_balanced(t)
     assert t._key is None
     assert t._l is None
     assert t._r is None
@@ -596,6 +634,7 @@ def test_delete_root_leaf() -> None:
     """Test deleting root when it's a leaf."""
     t = AVLTree(5, "a")
     t = t.delete(5)
+    _assert_balanced(t)
     assert t._key is None
     assert t._value is None
     assert t._l is None
@@ -611,6 +650,7 @@ def test_delete_left_no_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(10)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l is None or t._l._key is None
     assert t._r._key == 40
@@ -629,6 +669,7 @@ def test_delete_left_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(70)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l._key == 20
     assert t._l._l._key == 10
@@ -643,6 +684,7 @@ def test_delete_left_not_found() -> None:
     t = AVLTree(30, "a")
     t._l = left
     t = t.delete(5)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l._key == 10
     assert t._r is None
@@ -659,6 +701,7 @@ def test_delete_left_non_leaf() -> None:
     t = AVLTree(50, "a")
     t._l = left
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key in (40, 50)
     if t._key == 50:
         assert t._l._key == 40
@@ -680,6 +723,7 @@ def test_delete_left_left_no_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(10)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 20
     assert t._l._l is None or t._l._l._key is None
@@ -699,6 +743,7 @@ def test_delete_left_left_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(80)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 30
     assert t._l._l._key == 20
@@ -713,6 +758,7 @@ def test_delete_left_left_not_found() -> None:
     t = AVLTree(40, "a")
     t._l = left
     t = t.delete(5)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 20
     assert t._r is None
@@ -731,6 +777,7 @@ def test_delete_left_right_no_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 20
     assert t._l._l._key == 10
@@ -752,6 +799,7 @@ def test_delete_left_right_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(70)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l._key == 20
     assert t._l._l._key == 10
@@ -769,6 +817,7 @@ def test_delete_left_right_not_found() -> None:
     t._l = left
     t._r = right
     t = t.delete(15)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._l._key == 20
     assert t._r._key == 60
@@ -781,6 +830,7 @@ def test_delete_right_no_rebalance() -> None:
     t = AVLTree(10, "a")
     t._r = right
     t = t.delete(15)
+    _assert_balanced(t)
     assert t._key == 10
     assert t._l is None
     assert t._r is None or t._r._key is None
@@ -799,6 +849,7 @@ def test_delete_right_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(10)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l._key == 20
     assert t._l._l is None or t._l._l._key is None
@@ -813,6 +864,7 @@ def test_delete_right_not_found() -> None:
     t = AVLTree(10, "a")
     t._r = right
     t = t.delete(20)
+    _assert_balanced(t)
     assert t._key == 10
     assert t._r._key == 15
 
@@ -828,6 +880,7 @@ def test_delete_right_non_leaf() -> None:
     t._l = left
     t._r = right
     t = t.delete(50)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._r._key == 60
     assert t._r._l is None or t._r._l._key is None
@@ -846,6 +899,7 @@ def test_delete_right_left_no_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key == 20
     assert t._r._key == 40
     assert t._r._l is None or t._r._l._key is None
@@ -867,6 +921,7 @@ def test_delete_right_left_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(5)
+    _assert_balanced(t)
     assert t._key == 15
     assert t._l._key == 10
     assert t._l._l is None or t._l._l._key is None
@@ -884,6 +939,7 @@ def test_delete_right_left_not_found() -> None:
     t._l = left
     t._r = right
     t = t.delete(25)
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._r._key == 40
@@ -900,6 +956,7 @@ def test_delete_right_right_no_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(40)
+    _assert_balanced(t)
     assert t._key == 20
     assert t._r._key == 30
     assert t._r._r is None or t._r._r._key is None
@@ -918,6 +975,7 @@ def test_delete_right_right_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(20)
+    _assert_balanced(t)
     assert t._key == 30
     assert t._l._key == 10
     assert t._l._l is None
@@ -934,6 +992,7 @@ def test_delete_right_right_not_found() -> None:
     t._l = left
     t._r = right
     t = t.delete(35)
+    _assert_balanced(t)
     assert t._key == 20
     assert t._l._key == 10
     assert t._r._key == 30
@@ -956,6 +1015,7 @@ def test_delete_2child_successor_is_leaf() -> None:
     t._l = left
     t._r = right
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key == 40
     assert t._value == "f"
     assert t._l._key == 10
@@ -980,6 +1040,7 @@ def test_delete_2child_successor_has_right_child() -> None:
     t._l = left
     t._r = right
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key == 35
     assert t._value == "d"
     assert t._l._key == 20
@@ -1015,6 +1076,7 @@ def test_delete_2child_with_rebalance() -> None:
     t._l = left
     t._r = right
     t = t.delete(30)
+    _assert_balanced(t)
     assert t._key == 35
     assert t._value == "k"
     assert t._l._key == 20
