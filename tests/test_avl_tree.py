@@ -1439,3 +1439,308 @@ def test_value_update_with_different_type() -> None:
     t = t.set(10, {"key": "value"})
     _assert_balanced(t)
     assert t.get(10) == {"key": "value"}
+
+
+# ==================== 8. Integration Tests - 0/1/2 Switch Coverage ====================
+# Tests node count state transitions: 0 nodes, 1 node, 2 nodes
+# Operations: set(new_key), delete(existing_key)
+
+
+@pytest.mark.integration
+def test_switch_0_empty_tree() -> None:
+    """0-switch coverage: Initial state with empty tree (0 nodes)."""
+    t = AVLTree()
+    _assert_balanced(t)
+    assert t.find(1) is False
+    assert t.find(-5) is False
+
+
+@pytest.mark.integration
+def test_switch_0_single_node() -> None:
+    """0-switch coverage: Initial state with single node (1 node)."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    _assert_balanced(t)
+    assert t.find(5) is True
+    assert t.get(5) == "a"
+
+
+@pytest.mark.integration
+def test_switch_0_two_nodes() -> None:
+    """0-switch coverage: Initial state with two nodes (2 nodes)."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    _assert_balanced(t)
+    assert t.find(5) is True
+    assert t.find(-5) is True
+    assert len(t.items()) == 2
+
+
+@pytest.mark.integration
+def test_switch_1_empty_to_single_via_set() -> None:
+    """1-switch coverage: 0 nodes → set(new_key) → 1 node."""
+    t = AVLTree()
+    # 0 nodes state
+    _assert_balanced(t)
+    # Apply operation: set new key
+    t = t.set(5, "a")
+    # Verify 1 node state
+    _assert_balanced(t)
+    assert t.find(5) is True
+    assert len(t.items()) == 1
+
+
+@pytest.mark.integration
+def test_switch_1_single_to_empty_via_delete() -> None:
+    """1-switch coverage: 1 node → delete(existing_key) → 0 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+    assert t.find(5) is True
+    # Apply operation: delete existing key
+    t = t.delete(5)
+    # Verify 0 node state
+    _assert_balanced(t)
+    assert t.find(5) is False
+    assert len(t.items()) == 0
+
+
+@pytest.mark.integration
+def test_switch_1_single_to_two_via_set() -> None:
+    """1-switch coverage: 1 node → set(new_key) → 2 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+    # Apply operation: set new key
+    t = t.set(-5, "b")
+    # Verify 2 node state
+    _assert_balanced(t)
+    assert t.find(5) is True
+    assert t.find(-5) is True
+    assert len(t.items()) == 2
+
+
+@pytest.mark.integration
+def test_switch_1_two_to_one_via_delete() -> None:
+    """1-switch coverage: 2 nodes → delete(existing_key) → 1 node."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    # 2 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+    # Apply operation: delete one key
+    t = t.delete(5)
+    # Verify 1 node state
+    _assert_balanced(t)
+    assert t.find(5) is False
+    assert t.find(-5) is True
+    assert len(t.items()) == 1
+
+
+@pytest.mark.integration
+def test_switch_1_two_to_three_via_set() -> None:
+    """1-switch coverage: 2 nodes → set(new_key) → 3 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    # 2 node state
+    _assert_balanced(t)
+    # Apply operation: set new key
+    t = t.set(10, "c")
+    # Verify 3 node state
+    _assert_balanced(t)
+    assert t.find(5) is True
+    assert t.find(-5) is True
+    assert t.find(10) is True
+    assert len(t.items()) == 3
+
+
+@pytest.mark.integration
+def test_switch_2_empty_set_set() -> None:
+    """2-switch coverage: 0 nodes → set → 1 node → set → 2 nodes."""
+    t = AVLTree()
+    # 0 nodes state
+    _assert_balanced(t)
+
+    # Operation 1: set new key
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 1
+
+    # Operation 2: set another new key
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+    assert t.find(5) is True
+    assert t.find(-5) is True
+
+
+@pytest.mark.integration
+def test_switch_2_empty_set_delete() -> None:
+    """2-switch coverage: 0 nodes → set → 1 node → delete → 0 nodes."""
+    t = AVLTree()
+    # 0 nodes state
+    _assert_balanced(t)
+
+    # Operation 1: set new key
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+    assert t.find(5) is True
+
+    # Operation 2: delete that key
+    t = t.delete(5)
+    # 0 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 0
+    assert t.find(5) is False
+
+
+@pytest.mark.integration
+def test_switch_2_single_set_set() -> None:
+    """2-switch coverage: 1 node → set → 2 nodes → set → 3 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+
+    # Operation 1: set new key
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+
+    # Operation 2: set another new key
+    t = t.set(15, "c")
+    # 3 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 3
+    assert t.find(5) is True
+    assert t.find(-5) is True
+    assert t.find(15) is True
+
+
+@pytest.mark.integration
+def test_switch_2_single_set_delete() -> None:
+    """2-switch coverage: 1 node → set → 2 nodes → delete → 1 node."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+
+    # Operation 1: set new key
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+
+    # Operation 2: delete one key
+    t = t.delete(-5)
+    # 1 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 1
+    assert t.find(5) is True
+    assert t.find(-5) is False
+
+
+@pytest.mark.integration
+def test_switch_2_single_delete_set() -> None:
+    """2-switch coverage: 1 node → delete → 0 nodes → set → 1 node."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    # 1 node state
+    _assert_balanced(t)
+
+    # Operation 1: delete that key
+    t = t.delete(5)
+    # 0 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 0
+
+    # Operation 2: set new key
+    t = t.set(10, "b")
+    # 1 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 1
+    assert t.find(10) is True
+
+
+@pytest.mark.integration
+def test_switch_2_two_set_delete() -> None:
+    """2-switch coverage: 2 nodes → set → 3 nodes → delete → 2 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+
+    # Operation 1: set new key
+    t = t.set(15, "c")
+    # 3 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 3
+
+    # Operation 2: delete one key
+    t = t.delete(15)
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+    assert t.find(5) is True
+    assert t.find(-5) is True
+    assert t.find(15) is False
+
+
+@pytest.mark.integration
+def test_switch_2_two_delete_set() -> None:
+    """2-switch coverage: 2 nodes → delete → 1 node → set → 2 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+
+    # Operation 1: delete one key
+    t = t.delete(-5)
+    # 1 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 1
+    assert t.find(5) is True
+
+    # Operation 2: set new key
+    t = t.set(10, "c")
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+    assert t.find(5) is True
+    assert t.find(10) is True
+
+
+@pytest.mark.integration
+def test_switch_2_two_delete_delete() -> None:
+    """2-switch coverage: 2 nodes → delete → 1 node → delete → 0 nodes."""
+    t = AVLTree()
+    t = t.set(5, "a")
+    t = t.set(-5, "b")
+    # 2 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 2
+
+    # Operation 1: delete one key
+    t = t.delete(5)
+    # 1 node state
+    _assert_balanced(t)
+    assert len(t.items()) == 1
+    assert t.find(-5) is True
+
+    # Operation 2: delete the remaining key
+    t = t.delete(-5)
+    # 0 nodes state
+    _assert_balanced(t)
+    assert len(t.items()) == 0
+    assert t.find(-5) is False

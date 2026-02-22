@@ -150,3 +150,38 @@ Test AVL tree operations with various value types to ensure the tree structure a
 | 7-8 | Storage of nested structures | `dict[str, list[int]]` | Insert nested structures: `(1, {"scores": [90, 85, 95], "name": "Student A"})`, `(-5, {"scores": [75, 80, 78], "name": "Student B"})`. Verify nested data access. | Nested data accessed correctly; dict keys and list elements accessible; tree balanced. |
 | 7-9 | Storage of custom objects | `Person` (custom class) | Insert keys with Person objects: `(101, Person("Alice", 30))`, `(-50, Person("Bob", 25))`, `(200, Person("Charlie", 35))`. Retrieve and verify equality and attributes. | Custom objects compared correctly via `__eq__`; attributes accessible; tree balanced. |
 | 7-10 | Value update with type change | Mixed types | Insert with string value: `(10, "string_value")`. Update with list: `(10, [1, 2, 3])`. Update again with dict: `(10, {"key": "value"})`. | Tree remains balanced after each update; new values retrieved correctly; old values replaced. |
+
+## 8. Integration Tests - 0/1/2 Switch Coverage
+
+State transition tests using 0/1/2-switch coverage methodology. Tests verify correct behavior when transitioning between node count states (0, 1, 2, 3+ nodes) using operations: `set(new_key)` and `delete(existing_key)`.
+
+### 0-Switch Coverage (Initial States)
+
+| No. | Test Aspect | Initial State | Verification |
+| --- | --- | --- | --- |
+| 8-1 | Initial state: empty tree | 0 nodes | Tree is empty; find operations return False; items() returns []. |
+| 8-2 | Initial state: single node | 1 node | Contains one node; find succeeds for that key; items() returns list of 1 pair. |
+| 8-3 | Initial state: two nodes | 2 nodes | Contains two nodes; both keys findable; items() returns sorted list of 2 pairs. |
+
+### 1-Switch Coverage (State Transitions with 1 Operation)
+
+| No. | Test Aspect | Transition | Operation | Verification |
+| --- | --- | --- | --- | --- |
+| 8-4 | 0→1 nodes | Empty → Single | `set(new_key)` | Tree has 1 node; key findable; tree balanced. |
+| 8-5 | 1→0 nodes | Single → Empty | `delete(existing_key)` | Tree is empty; deleted key not found; tree balanced. |
+| 8-6 | 1→2 nodes | Single → Two | `set(new_key)` | Tree has 2 nodes; both keys findable; tree balanced. |
+| 8-7 | 2→1 node | Two → Single | `delete(one_existing_key)` | Tree has 1 node; deleted key not found; tree balanced. |
+| 8-8 | 2→3 nodes | Two → Three | `set(new_key)` | Tree has 3 nodes; all keys findable; tree balanced. |
+
+### 2-Switch Coverage (State Transitions with 2 Operations)
+
+| No. | Test Aspect | Transition | Operations | Verification |
+| --- | --- | --- | --- | --- |
+| 8-9 | 0→1→2 nodes | Empty → Single → Two | `set()` then `set()` | Tree has 2 nodes after both operations; tree balanced. |
+| 8-10 | 0→1→0 nodes | Empty → Single → Empty | `set()` then `delete()` | Tree returns to empty state; tree balanced. |
+| 8-11 | 1→2→3 nodes | Single → Two → Three | `set()` then `set()` | Tree has 3 nodes; all keys findable; tree balanced. |
+| 8-12 | 1→2→1 node | Single → Two → Single | `set()` then `delete()` | Tree has 1 node; tree balanced. |
+| 8-13 | 1→0→1 node | Single → Empty → Single | `delete()` then `set()` | Tree returns to 1 node with new key; tree balanced. |
+| 8-14 | 2→3→2 nodes | Two → Three → Two | `set()` then `delete()` | Tree returns to 2 nodes; tree balanced. |
+| 8-15 | 2→1→2 nodes | Two → One → Two | `delete()` then `set()` | Tree returns to 2 nodes; tree balanced. |
+| 8-16 | 2→1→0 nodes | Two → One → Empty | `delete()` then `delete()` | Tree becomes empty; tree balanced. |

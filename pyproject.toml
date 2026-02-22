@@ -47,6 +47,7 @@ markers = [
     "delete: deletion tests",
     "items: traversal tests",
     "valuetype: value type variety tests",
+    "integration: integration tests - 0/1/2 switch coverage",
 ]
 
 [tool.ruff]
