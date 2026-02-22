@@ -166,7 +166,7 @@ class AVLTree:
         """
         if t is None or t._key is None:
             return 0
-        return max(self._height(t._l), self._height(t._r)) + 1
+        return t._h
 
     def _update(self) -> None:
         """Update the height of this node.
