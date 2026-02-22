@@ -237,12 +237,12 @@ class AVLTree:
         self._update()
 
         if self._bf() > 1:
-            if self._l._bf() < 0:
+            if self._l and self._l._bf() < 0:
                 self._l = self._l._rot_l()
             return self._rot_r()
 
         if self._bf() < -1:
-            if self._r._bf() > 0:
+            if self._r and self._r._bf() > 0:
                 self._r = self._r._rot_r()
             return self._rot_l()
 
