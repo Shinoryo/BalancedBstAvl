@@ -41,7 +41,7 @@ def test_init_with_key_and_value():
 def test_set_to_empty_tree():
     """Test adding a node to an empty tree."""
     t = AVLTree()
-    t.set(5, "a")
+    t = t.set(5, "a")
     assert t._key == 5
     assert t._value == "a"
 
@@ -50,8 +50,8 @@ def test_set_to_empty_tree():
 def test_set_update_root():
     """Test updating the root node."""
     t = AVLTree()
-    t.set(5, "old")
-    t.set(5, "new")
+    t = t.set(5, "old")
+    t = t.set(5, "new")
     assert t._key == 5
     assert t._value == "new"
 
@@ -60,8 +60,8 @@ def test_set_update_root():
 def test_set_insert_left():
     """Test inserting a node to the left of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
     assert t._key == 10
     assert t._l._key == 5
     assert t._l._value == "b"
@@ -71,9 +71,9 @@ def test_set_insert_left():
 def test_set_update_left():
     """Test updating a node to the left of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
-    t.set(5, "b_new")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
+    t = t.set(5, "b_new")
     assert t._l._value == "b_new"
 
 
@@ -81,11 +81,11 @@ def test_set_update_left():
 def test_set_left_left_no_rebalance():
     """Test inserting a node to the left-left without rebalancing."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(70, "c")
-    t.set(60, "d")
-    t.set(20, "f")
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(70, "c")
+    t = t.set(60, "d")
+    t = t.set(20, "f")
     assert t.items() == [(20, "f"), (30, "b"), (50, "a"), (60, "d"), (70, "c")]
 
 
@@ -93,9 +93,9 @@ def test_set_left_left_no_rebalance():
 def test_set_left_left_with_rebalance():
     """Test inserting a node to the left-left with rebalancing."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
-    t.set(3, "c")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
+    t = t.set(3, "c")
     items = t.items()
     assert items == [(3, "c"), (5, "b"), (10, "a")]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -105,12 +105,12 @@ def test_set_left_left_with_rebalance():
 def test_set_update_left_left():
     """Test updating a node to the left-left of root."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(70, "c")
-    t.set(60, "d")
-    t.set(20, "d")
-    t.set(20, "d_new")
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(70, "c")
+    t = t.set(60, "d")
+    t = t.set(20, "d")
+    t = t.set(20, "d_new")
     assert t._l._l._value == "d_new"
 
 
@@ -118,9 +118,9 @@ def test_set_update_left_left():
 def test_set_left_right_no_rebalance():
     """Test inserting a node to the left-right without rebalancing."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
     assert t.items() == [(10, "b"), (20, "a"), (30, "c")]
 
 
@@ -128,9 +128,9 @@ def test_set_left_right_no_rebalance():
 def test_set_left_right_with_rebalance():
     """Test inserting a node to the left-right with rebalancing."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(3, "b")
-    t.set(5, "c")
+    t = t.set(10, "a")
+    t = t.set(3, "b")
+    t = t.set(5, "c")
     items = t.items()
     assert items == [(3, "b"), (5, "c"), (10, "a")]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -140,10 +140,10 @@ def test_set_left_right_with_rebalance():
 def test_set_update_left_right():
     """Test updating a node to the left-right of root."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(30, "c_new")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(30, "c_new")
     assert t._r._value == "c_new"
 
 
@@ -151,8 +151,8 @@ def test_set_update_left_right():
 def test_set_insert_right():
     """Test inserting a node to the right of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     assert t._key == 10
     assert t._r._key == 15
     assert t._r._value == "b"
@@ -162,9 +162,9 @@ def test_set_insert_right():
 def test_set_update_right():
     """Test updating a node to the right of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
-    t.set(15, "b_new")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
+    t = t.set(15, "b_new")
     assert t._r._value == "b_new"
 
 
@@ -172,10 +172,10 @@ def test_set_update_right():
 def test_set_right_left_no_rebalance():
     """Test inserting a node to the right-left without rebalancing."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(40, "c")
-    t.set(35, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(40, "c")
+    t = t.set(35, "d")
     assert t.items() == [(10, "b"), (20, "a"), (35, "d"), (40, "c")]
 
 
@@ -183,9 +183,9 @@ def test_set_right_left_no_rebalance():
 def test_set_right_left_with_rebalance():
     """Test inserting a node to the right-left with rebalancing."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(40, "b")
-    t.set(35, "c")
+    t = t.set(30, "a")
+    t = t.set(40, "b")
+    t = t.set(35, "c")
     items = t.items()
     assert items == [(30, "a"), (35, "c"), (40, "b")]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -195,21 +195,22 @@ def test_set_right_left_with_rebalance():
 def test_set_update_right_left():
     """Test updating a node to the right-left of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(30, "b")
-    t.set(20, "c")
-    t.set(20, "c_new")
-    assert t._r._l._value == "c_new"
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(40, "c")
+    t = t.set(35, "d")
+    t = t.set(35, "d_new")
+    assert t._r._l._value == "d_new"
 
 
 @pytest.mark.set
 def test_set_right_right_no_rebalance():
     """Test inserting a node to the right-right without rebalancing."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(25, "c")
-    t.set(30, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(25, "c")
+    t = t.set(30, "d")
     assert t.items() == [(10, "b"), (20, "a"), (25, "c"), (30, "d")]
 
 
@@ -217,9 +218,9 @@ def test_set_right_right_no_rebalance():
 def test_set_right_right_with_rebalance():
     """Test inserting a node to the right-right with rebalancing."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(40, "b")
-    t.set(50, "c")
+    t = t.set(30, "a")
+    t = t.set(40, "b")
+    t = t.set(50, "c")
     items = t.items()
     assert items == [(30, "a"), (40, "b"), (50, "c")]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -229,11 +230,12 @@ def test_set_right_right_with_rebalance():
 def test_set_update_right_right():
     """Test updating a node to the right-right of root."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(20, "b")
-    t.set(30, "c")
-    t.set(30, "c_new")
-    assert t._r._r._value == "c_new"
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(25, "c")
+    t = t.set(30, "d")
+    t = t.set(30, "d_new")
+    assert t._r._r._value == "d_new"
 
 
 # ==================== 3. get(x: int, default=None) ====================
@@ -242,7 +244,7 @@ def test_set_update_right_right():
 def test_get_from_root_exists():
     """Test getting value from root that exists."""
     t = AVLTree()
-    t.set(10, "a")
+    t = t.set(10, "a")
     assert t.get(10) == "a"
 
 
@@ -257,8 +259,8 @@ def test_get_from_root_not_exists():
 def test_get_from_left_exists():
     """Test getting value from left that exists."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
     assert t.get(5) == "b"
 
 
@@ -266,8 +268,8 @@ def test_get_from_left_exists():
 def test_get_from_left_not_exists():
     """Test getting value from left that doesn't exist."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
     assert t.get(3) is None
 
 
@@ -275,10 +277,10 @@ def test_get_from_left_not_exists():
 def test_get_from_left_left_exists():
     """Test getting value from left-left that exists."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
     assert t.get(10) == "d"
 
 
@@ -286,10 +288,10 @@ def test_get_from_left_left_exists():
 def test_get_from_left_left_not_exists():
     """Test getting value from left-left that doesn't exist."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
     assert t.get(5) is None
 
 
@@ -297,11 +299,11 @@ def test_get_from_left_left_not_exists():
 def test_get_from_left_right_exists():
     """Test getting value from left-right that exists."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(30, "e")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(30, "e")
     assert t.get(30) == "e"
 
 
@@ -309,11 +311,11 @@ def test_get_from_left_right_exists():
 def test_get_from_left_right_not_exists():
     """Test getting value from left-right that doesn't exist."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(30, "e")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(30, "e")
     assert t.get(15) is None
 
 
@@ -321,8 +323,8 @@ def test_get_from_left_right_not_exists():
 def test_get_from_right_exists():
     """Test getting value from right that exists."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     assert t.get(15) == "b"
 
 
@@ -330,8 +332,8 @@ def test_get_from_right_exists():
 def test_get_from_right_not_exists():
     """Test getting value from right that doesn't exist."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     assert t.get(20) is None
 
 
@@ -339,11 +341,11 @@ def test_get_from_right_not_exists():
 def test_get_from_right_left_exists():
     """Test getting value from right-left that exists."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
-    t.set(30, "d")
-    t.set(50, "e")
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
+    t = t.set(30, "d")
+    t = t.set(50, "e")
     assert t.get(30) == "d"
 
 
@@ -351,11 +353,11 @@ def test_get_from_right_left_exists():
 def test_get_from_right_left_not_exists():
     """Test getting value from right-left that doesn't exist."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
-    t.set(30, "d")
-    t.set(50, "e")
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
+    t = t.set(30, "d")
+    t = t.set(50, "e")
     assert t.get(25) is None
 
 
@@ -363,10 +365,10 @@ def test_get_from_right_left_not_exists():
 def test_get_from_right_right_exists():
     """Test getting value from right-right that exists."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
     assert t.get(40) == "d"
 
 
@@ -374,10 +376,10 @@ def test_get_from_right_right_exists():
 def test_get_from_right_right_not_exists():
     """Test getting value from right-right that doesn't exist."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
     assert t.get(35) is None
 
 
@@ -401,7 +403,7 @@ def test_get_default_specified():
 def test_find_root_exists():
     """Test finding root that exists."""
     t = AVLTree()
-    t.set(10, "a")
+    t = t.set(10, "a")
     assert t.find(10) is True
 
 
@@ -416,8 +418,8 @@ def test_find_root_not_exists():
 def test_find_left_exists():
     """Test finding left node that exists."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
     assert t.find(5) is True
 
 
@@ -425,8 +427,8 @@ def test_find_left_exists():
 def test_find_left_not_exists():
     """Test finding left node that doesn't exist."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
+    t = t.set(10, "a")
+    t = t.set(5, "b")
     assert t.find(3) is False
 
 
@@ -434,10 +436,10 @@ def test_find_left_not_exists():
 def test_find_left_left_exists():
     """Test finding left-left node that exists."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
     assert t.find(10) is True
 
 
@@ -445,10 +447,10 @@ def test_find_left_left_exists():
 def test_find_left_left_not_exists():
     """Test finding left-left node that doesn't exist."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
     assert t.find(5) is False
 
 
@@ -456,11 +458,11 @@ def test_find_left_left_not_exists():
 def test_find_left_right_exists():
     """Test finding left-right node that exists."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(30, "e")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(30, "e")
     assert t.find(30) is True
 
 
@@ -468,11 +470,11 @@ def test_find_left_right_exists():
 def test_find_left_right_not_exists():
     """Test finding left-right node that doesn't exist."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(30, "e")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(30, "e")
     assert t.find(15) is False
 
 
@@ -480,8 +482,8 @@ def test_find_left_right_not_exists():
 def test_find_right_exists():
     """Test finding right node that exists."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     assert t.find(15) is True
 
 
@@ -489,8 +491,8 @@ def test_find_right_exists():
 def test_find_right_not_exists():
     """Test finding right node that doesn't exist."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     assert t.find(20) is False
 
 
@@ -498,11 +500,11 @@ def test_find_right_not_exists():
 def test_find_right_left_exists():
     """Test finding right-left node that exists."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
-    t.set(30, "d")
-    t.set(50, "e")
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
+    t = t.set(30, "d")
+    t = t.set(50, "e")
     assert t.find(30) is True
 
 
@@ -510,11 +512,11 @@ def test_find_right_left_exists():
 def test_find_right_left_not_exists():
     """Test finding right-left node that doesn't exist."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
-    t.set(30, "d")
-    t.set(50, "e")
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
+    t = t.set(30, "d")
+    t = t.set(50, "e")
     assert t.find(25) is False
 
 
@@ -522,10 +524,10 @@ def test_find_right_left_not_exists():
 def test_find_right_right_exists():
     """Test finding right-right node that exists."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
     assert t.find(40) is True
 
 
@@ -533,10 +535,10 @@ def test_find_right_right_exists():
 def test_find_right_right_not_exists():
     """Test finding right-right node that doesn't exist."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
     assert t.find(35) is False
 
 
@@ -546,9 +548,9 @@ def test_find_right_right_not_exists():
 def test_delete_root_no_rebalance():
     """Test deleting root without rebalancing needed."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(5, "b")
-    t.delete(10)
+    t = t.set(10, "a")
+    t = t.set(5, "b")
+    t = t.delete(10)
     assert t.items() == [(5, "b")]
 
 
@@ -556,12 +558,12 @@ def test_delete_root_no_rebalance():
 def test_delete_root_with_rebalance():
     """Test deleting root with rebalancing needed."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(5, "e")
-    t.delete(60)
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(5, "e")
+    t = t.delete(60)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -571,7 +573,7 @@ def test_delete_root_not_found():
     """Test deleting from root when target not found."""
     t = AVLTree()
     original_items = t.items()
-    t.delete(5)
+    t = t.delete(5)
     assert t.items() == original_items
 
 
@@ -579,8 +581,8 @@ def test_delete_root_not_found():
 def test_delete_root_leaf():
     """Test deleting root when it's a leaf."""
     t = AVLTree()
-    t.set(5, "a")
-    t.delete(5)
+    t = t.set(5, "a")
+    t = t.delete(5)
     assert t.items() == []
 
 
@@ -588,10 +590,10 @@ def test_delete_root_leaf():
 def test_delete_left_no_rebalance():
     """Test deleting from left without rebalancing needed."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(10, "b")
-    t.set(40, "c")
-    t.delete(10)
+    t = t.set(30, "a")
+    t = t.set(10, "b")
+    t = t.set(40, "c")
+    t = t.delete(10)
     assert 10 not in [item[0] for item in t.items()]
 
 
@@ -599,12 +601,12 @@ def test_delete_left_no_rebalance():
 def test_delete_left_with_rebalance():
     """Test deleting from left with rebalancing needed."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(70, "c")
-    t.set(20, "d")
-    t.set(10, "e")
-    t.delete(70)
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(70, "c")
+    t = t.set(20, "d")
+    t = t.set(10, "e")
+    t = t.delete(70)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -613,10 +615,10 @@ def test_delete_left_with_rebalance():
 def test_delete_left_not_found():
     """Test deleting from left when target not found."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(10, "b")
+    t = t.set(30, "a")
+    t = t.set(10, "b")
     original_items = t.items()
-    t.delete(5)
+    t = t.delete(5)
     assert t.items() == original_items
 
 
@@ -624,11 +626,11 @@ def test_delete_left_not_found():
 def test_delete_left_non_leaf():
     """Test deleting non-leaf node from left."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(20, "c")
-    t.set(40, "d")
-    t.delete(30)
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(20, "c")
+    t = t.set(40, "d")
+    t = t.delete(30)
     items = t.items()
     assert 30 not in [item[0] for item in items]
 
@@ -637,11 +639,11 @@ def test_delete_left_non_leaf():
 def test_delete_left_left_no_rebalance():
     """Test deleting from left-left without rebalancing needed."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.delete(10)
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.delete(10)
     assert 10 not in [item[0] for item in t.items()]
 
 
@@ -649,12 +651,12 @@ def test_delete_left_left_no_rebalance():
 def test_delete_left_left_with_rebalance():
     """Test deleting from left-left with rebalancing needed."""
     t = AVLTree()
-    t.set(60, "a")
-    t.set(40, "b")
-    t.set(80, "c")
-    t.set(30, "d")
-    t.set(20, "e")
-    t.delete(80)
+    t = t.set(60, "a")
+    t = t.set(40, "b")
+    t = t.set(80, "c")
+    t = t.set(30, "d")
+    t = t.set(20, "e")
+    t = t.delete(80)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -663,10 +665,10 @@ def test_delete_left_left_with_rebalance():
 def test_delete_left_left_not_found():
     """Test deleting from left-left when target not found."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
     original_items = t.items()
-    t.delete(5)
+    t = t.delete(5)
     assert t.items() == original_items
 
 
@@ -674,12 +676,12 @@ def test_delete_left_left_not_found():
 def test_delete_left_right_no_rebalance():
     """Test deleting from left-right without rebalancing needed."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(10, "d")
-    t.set(30, "e")
-    t.delete(30)
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(10, "d")
+    t = t.set(30, "e")
+    t = t.delete(30)
     assert 30 not in [item[0] for item in t.items()]
 
 
@@ -687,13 +689,13 @@ def test_delete_left_right_no_rebalance():
 def test_delete_left_right_with_rebalance():
     """Test deleting from left-right with rebalancing needed."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(70, "c")
-    t.set(20, "d")
-    t.set(10, "e")
-    t.set(25, "f")
-    t.delete(70)
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(70, "c")
+    t = t.set(20, "d")
+    t = t.set(10, "e")
+    t = t.set(25, "f")
+    t = t.delete(70)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -702,11 +704,11 @@ def test_delete_left_right_with_rebalance():
 def test_delete_left_right_not_found():
     """Test deleting from left-right when target not found."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
     original_items = t.items()
-    t.delete(15)
+    t = t.delete(15)
     assert t.items() == original_items
 
 
@@ -714,9 +716,9 @@ def test_delete_left_right_not_found():
 def test_delete_right_no_rebalance():
     """Test deleting from right without rebalancing needed."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
-    t.delete(15)
+    t = t.set(10, "a")
+    t = t.set(15, "b")
+    t = t.delete(15)
     assert t.items() == [(10, "a")]
 
 
@@ -724,12 +726,12 @@ def test_delete_right_no_rebalance():
 def test_delete_right_with_rebalance():
     """Test deleting from right with rebalancing needed."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
-    t.set(50, "e")
-    t.delete(10)
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
+    t = t.set(50, "e")
+    t = t.delete(10)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -738,10 +740,10 @@ def test_delete_right_with_rebalance():
 def test_delete_right_not_found():
     """Test deleting from right when target not found."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(15, "b")
+    t = t.set(10, "a")
+    t = t.set(15, "b")
     original_items = t.items()
-    t.delete(20)
+    t = t.delete(20)
     assert t.items() == original_items
 
 
@@ -749,11 +751,11 @@ def test_delete_right_not_found():
 def test_delete_right_non_leaf():
     """Test deleting non-leaf node from right."""
     t = AVLTree()
-    t.set(40, "a")
-    t.set(20, "b")
-    t.set(60, "c")
-    t.set(50, "d")
-    t.delete(50)
+    t = t.set(40, "a")
+    t = t.set(20, "b")
+    t = t.set(60, "c")
+    t = t.set(50, "d")
+    t = t.delete(50)
     items = t.items()
     assert 50 not in [item[0] for item in items]
 
@@ -762,12 +764,12 @@ def test_delete_right_non_leaf():
 def test_delete_right_left_no_rebalance():
     """Test deleting from right-left without rebalancing needed."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
-    t.set(30, "d")
-    t.set(50, "e")
-    t.delete(30)
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
+    t = t.set(30, "d")
+    t = t.set(50, "e")
+    t = t.delete(30)
     assert 30 not in [item[0] for item in t.items()]
 
 
@@ -775,13 +777,13 @@ def test_delete_right_left_no_rebalance():
 def test_delete_right_left_with_rebalance():
     """Test deleting from right-left with rebalancing needed."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(10, "b")
-    t.set(50, "c")
-    t.set(5, "d")
-    t.set(15, "e")
-    t.set(12, "f")
-    t.delete(5)
+    t = t.set(30, "a")
+    t = t.set(10, "b")
+    t = t.set(50, "c")
+    t = t.set(5, "d")
+    t = t.set(15, "e")
+    t = t.set(12, "f")
+    t = t.delete(5)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -790,11 +792,11 @@ def test_delete_right_left_with_rebalance():
 def test_delete_right_left_not_found():
     """Test deleting from right-left when target not found."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(40, "b")
-    t.set(10, "c")
+    t = t.set(20, "a")
+    t = t.set(40, "b")
+    t = t.set(10, "c")
     original_items = t.items()
-    t.delete(25)
+    t = t.delete(25)
     assert t.items() == original_items
 
 
@@ -802,11 +804,11 @@ def test_delete_right_left_not_found():
 def test_delete_right_right_no_rebalance():
     """Test deleting from right-right without rebalancing needed."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
-    t.set(40, "d")
-    t.delete(40)
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
+    t = t.delete(40)
     assert 40 not in [item[0] for item in t.items()]
 
 
@@ -814,12 +816,12 @@ def test_delete_right_right_no_rebalance():
 def test_delete_right_right_with_rebalance():
     """Test deleting from right-right with rebalancing needed."""
     t = AVLTree()
-    t.set(10, "a")
-    t.set(20, "b")
-    t.set(30, "c")
-    t.set(40, "d")
-    t.set(50, "e")
-    t.delete(20)
+    t = t.set(10, "a")
+    t = t.set(20, "b")
+    t = t.set(30, "c")
+    t = t.set(40, "d")
+    t = t.set(50, "e")
+    t = t.delete(20)
     items = t.items()
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
 
@@ -828,11 +830,11 @@ def test_delete_right_right_with_rebalance():
 def test_delete_right_right_not_found():
     """Test deleting from right-right when target not found."""
     t = AVLTree()
-    t.set(20, "a")
-    t.set(10, "b")
-    t.set(30, "c")
+    t = t.set(20, "a")
+    t = t.set(10, "b")
+    t = t.set(30, "c")
     original_items = t.items()
-    t.delete(35)
+    t = t.delete(35)
     assert t.items() == original_items
 
 
@@ -840,14 +842,14 @@ def test_delete_right_right_not_found():
 def test_delete_2child_successor_is_leaf():
     """Test deleting 2-child node where successor is leaf."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(10, "b")
-    t.set(50, "c")
-    t.set(5, "d")
-    t.set(20, "e")
-    t.set(40, "f")
-    t.set(60, "g")
-    t.delete(30)
+    t = t.set(30, "a")
+    t = t.set(10, "b")
+    t = t.set(50, "c")
+    t = t.set(5, "d")
+    t = t.set(20, "e")
+    t = t.set(40, "f")
+    t = t.set(60, "g")
+    t = t.delete(30)
     items = t.items()
     assert 30 not in [item[0] for item in items]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -857,13 +859,13 @@ def test_delete_2child_successor_is_leaf():
 def test_delete_2child_successor_has_right_child():
     """Test deleting 2-child node where successor has right child."""
     t = AVLTree()
-    t.set(30, "a")
-    t.set(20, "b")
-    t.set(40, "c")
-    t.set(35, "d")
-    t.set(37, "e")
-    t.set(50, "f")
-    t.delete(30)
+    t = t.set(30, "a")
+    t = t.set(20, "b")
+    t = t.set(40, "c")
+    t = t.set(35, "d")
+    t = t.set(37, "e")
+    t = t.set(50, "f")
+    t = t.delete(30)
     items = t.items()
     assert 30 not in [item[0] for item in items]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -873,19 +875,19 @@ def test_delete_2child_successor_has_right_child():
 def test_delete_2child_with_rebalance():
     """Test deleting 2-child node with rebalancing after replacement."""
     t = AVLTree()
-    t.set(50, "a")
-    t.set(30, "b")
-    t.set(70, "c")
-    t.set(20, "d")
-    t.set(40, "e")
-    t.set(60, "f")
-    t.set(80, "g")
-    t.set(10, "h")
-    t.set(5, "i")
-    t.set(25, "j")
-    t.set(35, "k")
-    t.set(45, "l")
-    t.delete(30)
+    t = t.set(50, "a")
+    t = t.set(30, "b")
+    t = t.set(70, "c")
+    t = t.set(20, "d")
+    t = t.set(40, "e")
+    t = t.set(60, "f")
+    t = t.set(80, "g")
+    t = t.set(10, "h")
+    t = t.set(5, "i")
+    t = t.set(25, "j")
+    t = t.set(35, "k")
+    t = t.set(45, "l")
+    t = t.delete(30)
     items = t.items()
     assert 30 not in [item[0] for item in items]
     assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
@@ -904,7 +906,7 @@ def test_items_empty_tree():
 def test_items_single_node():
     """Test items() with single node."""
     t = AVLTree()
-    t.set(5, "a")
+    t = t.set(5, "a")
     assert t.items() == [(5, "a")]
 
 
@@ -912,8 +914,8 @@ def test_items_single_node():
 def test_items_two_nodes_ascending():
     """Test items() with two nodes inserted in ascending order."""
     t = AVLTree()
-    t.set(1, "a")
-    t.set(2, "b")
+    t = t.set(1, "a")
+    t = t.set(2, "b")
     assert t.items() == [(1, "a"), (2, "b")]
 
 
@@ -921,8 +923,8 @@ def test_items_two_nodes_ascending():
 def test_items_two_nodes_descending():
     """Test items() with two nodes inserted in descending order."""
     t = AVLTree()
-    t.set(2, "a")
-    t.set(1, "b")
+    t = t.set(2, "a")
+    t = t.set(1, "b")
     assert t.items() == [(1, "b"), (2, "a")]
 
 
@@ -930,9 +932,9 @@ def test_items_two_nodes_descending():
 def test_items_three_nodes_ascending():
     """Test items() with three nodes inserted in ascending order."""
     t = AVLTree()
-    t.set(1, "a")
-    t.set(2, "b")
-    t.set(3, "c")
+    t = t.set(1, "a")
+    t = t.set(2, "b")
+    t = t.set(3, "c")
     assert t.items() == [(1, "a"), (2, "b"), (3, "c")]
 
 
@@ -940,9 +942,9 @@ def test_items_three_nodes_ascending():
 def test_items_three_nodes_descending():
     """Test items() with three nodes inserted in descending order."""
     t = AVLTree()
-    t.set(3, "a")
-    t.set(2, "b")
-    t.set(1, "c")
+    t = t.set(3, "a")
+    t = t.set(2, "b")
+    t = t.set(1, "c")
     assert t.items() == [(1, "c"), (2, "b"), (3, "a")]
 
 
@@ -950,7 +952,7 @@ def test_items_three_nodes_descending():
 def test_items_three_nodes_mixed():
     """Test items() with three nodes inserted in mixed order."""
     t = AVLTree()
-    t.set(2, "a")
-    t.set(1, "b")
-    t.set(3, "c")
+    t = t.set(2, "a")
+    t = t.set(1, "b")
+    t = t.set(3, "c")
     assert t.items() == [(1, "b"), (2, "a"), (3, "c")]

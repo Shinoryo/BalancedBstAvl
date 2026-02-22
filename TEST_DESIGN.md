@@ -20,22 +20,22 @@
 | --- | --- | --- | --- | --- | --- |
 | 1-1 | Root operation | Empty tree | `t = AVLTree()` | `t.set(5, "a")` | Can add a node to an empty tree. |
 | 1-2 | Root operation | Update value | `t = AVLTree(); t.set(5, "old")` | `t.set(5, "new")` | Can update the root. |
-| 2-1 | Left operation | Insert | `t = AVLTree(); t.set(10, "a")` | `t.set(5, "b")` | Can insert a node to the left of root. |
-| 2-2 | Left operation | Update value | `t = AVLTree(); t.set(10, "a"); set(5, "b")` | `set(5, "b_new")` | Can update the node to the left of root. |
+| 2-1 | Left operation | Insert | `t = AVLTree(); t.set(10, "a")` | `t.set(5, "b")` | Can insert a node with key `5` and retrieve its value. |
+| 2-2 | Left operation | Update value | `t = AVLTree(); t.set(10, "a"); set(5, "b")` | `set(5, "b_new")` | Value for key `5` can be updated. |
 | 3-1 | Left-left operation | Insert (no rebalancing needed) | `t = AVLTree(); t.set(50, "a"); t.set(30, "b"); t.set(70, "c"); t.set(60, "d")` | `t.set(20, "f")` | Can insert a node to the left-left of root. No rebalancing occurs. |
 | 3-2 | Left-left operation | Insert (rebalancing occurs) | `t = AVLTree(); t.set(10, "a"); t.set(5, "b")` | `t.set(3, "c")` | After inserting a node to the left-left of root, rebalancing occurs. |
-| 3-3 | Left-left operation | Update value | `t = AVLTree(); t.set(50, "a"); t.set(30, "b"); t.set(70, "c"); t.set(60, "d"); t.set(20, "d")` | `t.set(20, "d_new")` | Can update the node to the left-left of root. |
+| 3-3 | Left-left operation | Update value | `t = AVLTree(); t.set(50, "a"); t.set(30, "b"); t.set(70, "c"); t.set(60, "d"); t.set(20, "d")` | `t.set(20, "d_new")` | Value for key `20` can be updated. |
 | 4-1 | Left-right operation | Insert (no rebalancing needed) | `t = AVLTree(); t.set(20, "a"); t.set(10, "b")` | `set(30, "c")` | Can insert a node to the left-right of root. No rebalancing occurs. |
 | 4-2 | Left-right operation | Insert (rebalancing occurs) | `t = AVLTree(); t.set(10, "a"); t.set(3, "b")` | `t.set(5, "c")` | After inserting a node to the left-right of root, rebalancing occurs. |
-| 4-3 | Left-right operation | Update value | `t = AVLTree(); t.set(20, "a"); t.set(10, "b"); t.set(30, "c")` | `t.set(30, "c_new")` | Can update the node to the left-right of root. |
-| 5-1 | Right operation | Insert | `t = AVLTree(); t.set(10, "a")` | `t.set(15, "b")` | Can insert a node to the right of root. |
-| 5-2 | Right operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(15, "b")` | `t.set(15, "b_new")` | Can update the node to the right of root. |
+| 4-3 | Left-right operation | Update value | `t = AVLTree(); t.set(20, "a"); t.set(10, "b"); t.set(30, "c")` | `t.set(30, "c_new")` | Value for key `30` can be updated. |
+| 5-1 | Right operation | Insert | `t = AVLTree(); t.set(10, "a")` | `t.set(15, "b")` | Can insert a node with key `15` and retrieve its value. |
+| 5-2 | Right operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(15, "b")` | `t.set(15, "b_new")` | Value for key `15` can be updated. |
 | 6-1 | Right-left operation | Insert (no rebalancing needed) | `t = AVLTree(); t.set(20, "a"); t.set(10, "b"); t.set(40, "c")` | `t.set(35, "d")` | Can insert a node to the right-left of root. No rebalancing occurs. |
 | 6-2 | Right-left operation | Insert (rebalancing occurs) | `t = AVLTree(); t.set(30, "a"); t.set(40, "b")` | `t.set(35, "c")` | Can insert a node to the right-left of root. Rebalancing occurs. |
-| 6-3 | Right-left operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(30, "b"); t.set(20, "c")` | `set(20, "c_new")` | Can update the node to the right-left of root. |
+| 6-3 | Right-left operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(30, "b"); t.set(20, "c")` | `set(20, "c_new")` | Value for key `20` can be updated. |
 | 7-1 | Right-right operation | Insert (no rebalancing needed) | `t = AVLTree(); t.set(20, "a"); t.set(10, "b"); t.set(25, "c")` | `t.set(30, "d")` | Can insert a node to the right-right of root. No rebalancing occurs. |
 | 7-2 | Right-right operation | Insert (rebalancing occurs) | `t = AVLTree(); t.set(30, "a"); t.set(40, "b")` | `t.set(50, "c")` | Can insert a node to the right-right of root. Rebalancing occurs. |
-| 7-3 | Right-right operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(20, "b"); t.set(30, "c")` | `t.set(30, "c_new")` | Can update the node to the right-right of root. |
+| 7-3 | Right-right operation | Update value | `t = AVLTree(); t.set(10, "a"); t.set(20, "b"); t.set(30, "c")` | `t.set(30, "c_new")` | Value for key `30` can be updated. |
 
 ## 3. `get(x: int, default=None) → Any`
 
