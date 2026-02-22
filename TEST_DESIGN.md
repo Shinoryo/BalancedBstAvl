@@ -1,9 +1,22 @@
 ﻿# AVL Tree Test Case Design Document
 
+## Overview
+
+All test cases verify both **correctness of operations** and **height consistency**. According to the AVL tree definition, the height of each node must satisfy:
+
+- Empty node: `_h = 0`
+- Non-empty node: `_h = 1 + max(height(left_child), height(right_child))`
+
+This property is validated in every test through the `_assert_height_consistency()` helper function.
+
 ## Terminology
 
 - **Rebalancing**: Adjustment operation (including rotations) performed when the AVL condition (height difference of subtrees exceeds acceptable range) is violated.
 - **Successor**: The `in-order successor` used in deletion operations (the minimum node in the right subtree of the deletion target).
+- **Height (`_h`)**: The height of a node is defined as:
+  - `0` if the node is empty (key is None)
+  - `1 + max(height(left_child), height(right_child))` for non-empty nodes
+  - Must be correctly updated after insertions, deletions, and rotations
 
 ## 1. `__init__` (Constructor)
 

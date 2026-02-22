@@ -32,15 +32,61 @@ def _assert_avl_balance(
     return max(left_h, right_h) + 1
 
 
+def _rebuild_heights(node: AVLTree | None) -> None:
+    """Rebuild all node heights in a manually constructed tree.
+
+    Used to fix heights in trees constructed via direct assignment of children.
+    Performs post-order traversal to correctly compute heights bottom-up.
+
+    Args:
+        node: The subtree root to rebuild.
+    """
+    if node is None or node._key is None:
+        return
+    _rebuild_heights(node._l)
+    _rebuild_heights(node._r)
+    # Recalculate height based on children
+    left_h = node._l._h if (node._l and node._l._key is not None) else 0
+    right_h = node._r._h if (node._r and node._r._key is not None) else 0
+    node._h = max(left_h, right_h) + 1
+
+
+def _assert_height_consistency(node: AVLTree | None) -> int:
+    """Assert that all node heights are correctly computed and consistent.
+
+    Used for trees created through set/delete operations.
+
+    Args:
+        node: The subtree root to validate.
+
+    Returns:
+        The computed height of the subtree.
+    """
+    if node is None or node._key is None:
+        return 0
+    left_h = _assert_height_consistency(node._l)
+    right_h = _assert_height_consistency(node._r)
+    computed_h = max(left_h, right_h) + 1
+    assert node._h == computed_h, (
+        f"Node {node._key}: stored height {node._h}, computed height {computed_h}"
+    )
+    return computed_h
+
+
 def _assert_balanced(tree: AVLTree) -> None:
     """Assert that the tree satisfies AVL balance and BST ordering.
+
+    Also verifies that all node heights are correctly computed.
 
     Args:
         tree: The tree root to validate.
     """
     _assert_avl_balance(tree)
+    _assert_height_consistency(tree)
+
 
 # ==================== 1. __init__ (Constructor) ====================
+
 
 @pytest.mark.init
 def test_init_empty() -> None:
@@ -74,6 +120,7 @@ def test_init_with_key_and_value() -> None:
 
 
 # ==================== 2. set(x: int, value: Any) ====================
+
 
 @pytest.mark.set
 def test_set_to_empty_tree() -> None:
@@ -326,6 +373,7 @@ def test_set_update_right_right() -> None:
 
 # ==================== 3. get(x: int, default=None) ====================
 
+
 @pytest.mark.get
 def test_get_from_root_exists() -> None:
     """Test getting value from root that exists."""
@@ -472,6 +520,7 @@ def test_get_default_specified() -> None:
 
 # ==================== 4. find(x: int) ====================
 
+
 @pytest.mark.find
 def test_find_root_exists() -> None:
     """Test finding root that exists."""
@@ -604,6 +653,7 @@ def test_find_right_right_not_exists() -> None:
 
 # ==================== 5. delete(x: int) ====================
 
+
 @pytest.mark.delete
 def test_delete_root_no_rebalance() -> None:
     """Test deleting root without rebalancing needed."""
@@ -630,6 +680,7 @@ def test_delete_root_with_rebalance() -> None:
     t = AVLTree(20, "b")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(60)
     _assert_balanced(t)
     assert t._key == 20
@@ -689,6 +740,7 @@ def test_delete_left_with_rebalance() -> None:
     t = AVLTree(30, "b")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(70)
     _assert_balanced(t)
     assert t._key == 30
@@ -763,6 +815,7 @@ def test_delete_left_left_with_rebalance() -> None:
     t = AVLTree(40, "b")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(80)
     _assert_balanced(t)
     assert t._key == 40
@@ -819,6 +872,7 @@ def test_delete_left_right_with_rebalance() -> None:
     t = AVLTree(30, "b")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(70)
     _assert_balanced(t)
     assert t._key == 30
@@ -869,6 +923,7 @@ def test_delete_right_with_rebalance() -> None:
     t = AVLTree(30, "c")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(10)
     _assert_balanced(t)
     assert t._key == 30
@@ -941,6 +996,7 @@ def test_delete_right_left_with_rebalance() -> None:
     t = AVLTree(15, "e")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(5)
     _assert_balanced(t)
     assert t._key == 15
@@ -995,6 +1051,7 @@ def test_delete_right_right_with_rebalance() -> None:
     t = AVLTree(30, "c")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(20)
     _assert_balanced(t)
     assert t._key == 30
@@ -1035,6 +1092,7 @@ def test_delete_2child_successor_is_leaf() -> None:
     t = AVLTree(30, "a")
     t._l = left
     t._r = right
+    _rebuild_heights(t)
     t = t.delete(30)
     _assert_balanced(t)
     assert t._key == 40
@@ -1119,6 +1177,7 @@ def test_delete_2child_with_rebalance() -> None:
 
 
 # ==================== 6. items() ====================
+
 
 @pytest.mark.items
 def test_items_empty_tree() -> None:
