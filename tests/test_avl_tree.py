@@ -1,9 +1,25 @@
-﻿import pytest
+﻿from __future__ import annotations
+
+import pytest
 
 from avltree import AVLTree
 
 
-def _assert_avl_balance(node: AVLTree | None, min_key: int | None = None, max_key: int | None = None) -> int:
+def _assert_avl_balance(
+    node: AVLTree | None,
+    min_key: int | None = None,
+    max_key: int | None = None,
+) -> int:
+    """Assert AVL balance and BST ordering for a subtree.
+
+    Args:
+        node: The subtree root to validate.
+        min_key: Lower bound (exclusive) for keys in this subtree.
+        max_key: Upper bound (exclusive) for keys in this subtree.
+
+    Returns:
+        The computed height of the subtree.
+    """
     if node is None or node._key is None:
         return 0
     if min_key is not None:
@@ -17,6 +33,11 @@ def _assert_avl_balance(node: AVLTree | None, min_key: int | None = None, max_ke
 
 
 def _assert_balanced(tree: AVLTree) -> None:
+    """Assert that the tree satisfies AVL balance and BST ordering.
+
+    Args:
+        tree: The tree root to validate.
+    """
     _assert_avl_balance(tree)
 
 # ==================== 1. __init__ (Constructor) ====================
