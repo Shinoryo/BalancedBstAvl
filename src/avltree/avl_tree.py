@@ -49,21 +49,30 @@ class AVLTree:
         if self._key is None:
             return self
 
-        if x < self._key and self._l:
-            self._l = self._l.delete(x)
-        elif x > self._key and self._r:
-            self._r = self._r.delete(x)
-        elif x == self._key:
-            if not self._l:
-                return self._r or AVLTree()
-            if not self._r:
-                return self._l or AVLTree()
+        if x < self._key:
+            if self._l is not None:
+                result = self._l.delete(x)
+                # Empty node should not be stored as a child
+                self._l = result if result._key is not None else None
+        elif x > self._key:
+            if self._r is not None:
+                result = self._r.delete(x)
+                # Empty node should not be stored as a child
+                self._r = result if result._key is not None else None
+        else:  # x == self._key
+            if self._l is None:
+                return self._r if self._r is not None else AVLTree()
+            if self._r is None:
+                return self._l
+            # Two children case: find successor (minimum in right subtree)
             t = self._r
-            while t._l:
+            while t._l is not None:
                 t = t._l
             self._key = t._key
             self._value = t._value
-            self._r = self._r.delete(t._key)
+            result = self._r.delete(t._key)
+            # Empty node should not be stored as a child
+            self._r = result if result._key is not None else None
 
         return self._balance()
 
