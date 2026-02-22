@@ -39,6 +39,14 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "init: constructor tests",
+    "set: insertion and update tests",
+    "get: lookup tests",
+    "find: membership tests",
+    "delete: deletion tests",
+    "items: traversal tests",
+]
 
 [tool.ruff]
 exclude = [
