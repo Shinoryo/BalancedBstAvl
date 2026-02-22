@@ -46,6 +46,7 @@ markers = [
     "find: membership tests",
     "delete: deletion tests",
     "items: traversal tests",
+    "valuetype: value type variety tests",
 ]
 
 [tool.ruff]

@@ -5,6 +5,35 @@ import pytest
 from avltree import AVLTree
 
 
+# Custom class for testing arbitrary object values
+class Person:
+    """Simple class for testing custom objects as values in AVL tree."""
+
+    def __init__(self, name: str, age: int) -> None:
+        """Initialize a Person with name and age.
+
+        Args:
+            name: The person's name.
+            age: The person's age.
+        """
+        self.name = name
+        self.age = age
+
+    def __eq__(self, other: object) -> bool:
+        """Check equality based on name and age."""
+        if not isinstance(other, Person):
+            return NotImplemented
+        return self.name == other.name and self.age == other.age
+
+    def __hash__(self) -> int:
+        """Return hash based on name and age."""
+        return hash((self.name, self.age))
+
+    def __repr__(self) -> str:
+        """Return string representation."""
+        return f"Person(name={self.name!r}, age={self.age})"
+
+
 def _assert_avl_balance(
     node: AVLTree | None,
     min_key: int | None = None,
@@ -1242,3 +1271,171 @@ def test_items_three_nodes_mixed() -> None:
     t._l = left
     t._r = right
     assert t.items() == [(-5, "b"), (0, "a"), (10, "c")]
+
+
+# ==================== 7. Multiple Value Types (Integration Tests) ====================
+
+
+@pytest.mark.valuetype
+def test_value_with_bool() -> None:
+    """Test storing boolean values."""
+    t = AVLTree()
+    t = t.set(1, value=True)
+    t = t.set(-5, value=False)
+    t = t.set(10, value=True)
+
+    _assert_balanced(t)
+    assert t.get(1) is True
+    assert t.get(-5) is False
+    assert t.get(10) is True
+
+
+@pytest.mark.valuetype
+def test_value_with_int() -> None:
+    """Test storing integer values as values in AVL tree."""
+    t = AVLTree()
+    t = t.set(1, 42)
+    t = t.set(-5, -100)
+    t = t.set(10, 0)
+
+    _assert_balanced(t)
+    assert t.get(1) == 42
+    assert t.get(-5) == -100
+    assert t.get(10) == 0
+    assert t.find(1) is True
+
+
+@pytest.mark.valuetype
+def test_value_with_float() -> None:
+    """Test storing float as value in AVL tree."""
+    t = AVLTree()
+    t = t.set(1, 3.14)
+    t = t.set(-5, 2.71)
+    t = t.set(10, 1.41)
+
+    _assert_balanced(t)
+    assert abs(t.get(1) - 3.14) < 1e-9
+    assert abs(t.get(-5) - 2.71) < 1e-9
+    assert abs(t.get(10) - 1.41) < 1e-9
+
+
+@pytest.mark.valuetype
+def test_value_with_complex() -> None:
+    """Test storing complex numbers as values."""
+    t = AVLTree()
+    t = t.set(1, 3 + 4j)
+    t = t.set(-5, 1 + 1j)
+    t = t.set(10, 5 + 2j)
+
+    _assert_balanced(t)
+    assert t.get(1) == 3 + 4j
+    assert t.get(-5) == 1 + 1j
+    assert t.get(10) == 5 + 2j
+
+
+@pytest.mark.valuetype
+def test_value_with_list() -> None:
+    """Test storing list as value in AVL tree."""
+    t = AVLTree()
+    t = t.set(1, [10, 20, 30])
+    t = t.set(-5, [1, 2])
+    t = t.set(15, [100])
+
+    _assert_balanced(t)
+    assert t.get(1) == [10, 20, 30]
+    assert t.get(-5) == [1, 2]
+    assert t.get(15) == [100]
+    assert t.find(1) is True
+
+
+@pytest.mark.valuetype
+def test_value_with_dict() -> None:
+    """Test storing dict as value in AVL tree."""
+    t = AVLTree()
+    dict_a = {"name": "Alice", "age": 30}
+    dict_b = {"name": "Bob", "age": 25}
+    dict_c = {"name": "Charlie", "age": 35}
+
+    t = t.set(1, dict_a)
+    t = t.set(-10, dict_b)
+    t = t.set(20, dict_c)
+
+    _assert_balanced(t)
+    assert t.get(1) == dict_a
+    assert t.get(-10) == dict_b
+    assert t.get(20) == dict_c
+    assert t.find(-10) is True
+
+
+@pytest.mark.valuetype
+def test_value_with_tuple() -> None:
+    """Test storing tuple as value in AVL tree."""
+    t = AVLTree()
+    tuple_a = (1, "one", True)
+    tuple_b = (2, "two", False)
+    tuple_c = (3, "three", True)
+
+    t = t.set(0, tuple_a)
+    t = t.set(-20, tuple_b)
+    t = t.set(50, tuple_c)
+
+    _assert_balanced(t)
+    assert t.get(0) == tuple_a
+    assert t.get(-20) == tuple_b
+    assert t.get(50) == tuple_c
+    assert t.get(0)[1] == "one"
+
+
+@pytest.mark.valuetype
+def test_value_with_nested_structures() -> None:
+    """Test storing nested data structures (dict containing lists) as values."""
+    t = AVLTree()
+    complex_a = {"scores": [90, 85, 95], "name": "Student A"}
+    complex_b = {"scores": [75, 80, 78], "name": "Student B"}
+
+    t = t.set(1, complex_a)
+    t = t.set(-5, complex_b)
+
+    _assert_balanced(t)
+    assert t.get(1)["scores"] == [90, 85, 95]
+    assert t.get(-5)["name"] == "Student B"
+    assert len(t.get(1)["scores"]) == 3
+
+
+@pytest.mark.valuetype
+def test_value_with_custom_object() -> None:
+    """Test storing custom class instances as values."""
+    alice = Person("Alice", 30)
+    bob = Person("Bob", 25)
+    charlie = Person("Charlie", 35)
+
+    t = AVLTree()
+    t = t.set(101, alice)
+    t = t.set(-50, bob)
+    t = t.set(200, charlie)
+
+    _assert_balanced(t)
+    assert t.get(101) == alice
+    assert t.get(-50) == bob
+    assert t.get(200) == charlie
+    assert t.get(101).name == "Alice"
+    assert t.get(-50).age == 25
+
+
+@pytest.mark.valuetype
+def test_value_update_with_different_type() -> None:
+    """Test updating a value with a different type."""
+    t = AVLTree()
+    t = t.set(10, "string_value")
+    _assert_balanced(t)
+    assert t.get(10) == "string_value"
+
+    # Update with a list
+    t = t.set(10, [1, 2, 3])
+    _assert_balanced(t)
+    assert t.get(10) == [1, 2, 3]
+
+    # Update with a dict
+    t = t.set(10, {"key": "value"})
+    _assert_balanced(t)
+    assert t.get(10) == {"key": "value"}

@@ -133,3 +133,20 @@ This property is validated in every test through the `_assert_height_consistency
 | 4-1 | Items from three nodes (ascending order) | The tree has three nodes with keys `-1`, `0`, and `3`, linked in a right-leaning chain. | `t.items()` | `[(-1, "a"), (0, "b"), (3, "c")]` |
 | 4-2 | Items from three nodes (descending order) | The tree has three nodes with keys `3`, `0`, and `-1`, linked in a left-leaning chain. | `t.items()` | `[(-1, "c"), (0, "b"), (3, "a")]` |
 | 4-3 | Items from three nodes (mixed order) | The tree has three nodes with keys `0` (root), `-5` (left), and `10` (right). | `t.items()` | `[(-5, "b"), (0, "a"), (10, "c")]` |
+
+## 7. Multiple Value Types (Integration Tests)
+
+Test AVL tree operations with various value types to ensure the tree structure and operations remain correct regardless of value type.
+
+| No. | Test Aspect | Value Type(s) | Test Procedure | Verification |
+| --- | --- | --- | --- | --- |
+| 7-1 | Storage of boolean values | `bool` | Insert boolean values: `(1, True)`, `(-5, False)`, `(10, True)`. | Boolean values stored and retrieved correctly; tree balanced. |
+| 7-2 | Storage of integer values | `int` | Insert integer values: `(1, 42)`, `(-5, -100)`, `(10, 0)`. | Integer values stored and retrieved correctly; tree balanced; find operations work. |
+| 7-3 | Storage of float values | `float` | Insert float values: `(1, 3.14)`, `(-5, 2.71)`, `(10, 1.41)`. Verify with floating-point precision tolerance. | All float values retrieved correctly; tree balanced; floating-point comparison valid. |
+| 7-4 | Storage of complex numbers | `complex` | Insert complex numbers: `(1, 3+4j)`, `(-5, 1+1j)`, `(10, 5+2j)`. | Complex numbers stored and retrieved correctly; equality checks work; tree balanced. |
+| 7-5 | Storage of list values | `list[int]` | Insert keys with list values: `(1, [10, 20, 30])`, `(-5, [1, 2])`, `(15, [100])`. Retrieve and verify all values. | All list values retrieved correctly; tree balanced; find operations work. |
+| 7-6 | Storage of dict values | `dict[str, Any]` | Insert keys with dict values: `(1, {"name": "Alice", "age": 30})`, `(-10, {"name": "Bob", "age": 25})`, `(20, {"name": "Charlie", "age": 35})`. | All dict values retrieved correctly; tree balanced; find operations work. |
+| 7-7 | Storage of tuple values | `tuple` | Insert keys with tuple values: `(0, (1, "one", True))`, `(-20, (2, "two", False))`, `(50, (3, "three", True))`. Retrieve and verify indexing works. | Tuple values retrieved correctly; indexing works; tree balanced. |
+| 7-8 | Storage of nested structures | `dict[str, list[int]]` | Insert nested structures: `(1, {"scores": [90, 85, 95], "name": "Student A"})`, `(-5, {"scores": [75, 80, 78], "name": "Student B"})`. Verify nested data access. | Nested data accessed correctly; dict keys and list elements accessible; tree balanced. |
+| 7-9 | Storage of custom objects | `Person` (custom class) | Insert keys with Person objects: `(101, Person("Alice", 30))`, `(-50, Person("Bob", 25))`, `(200, Person("Charlie", 35))`. Retrieve and verify equality and attributes. | Custom objects compared correctly via `__eq__`; attributes accessible; tree balanced. |
+| 7-10 | Value update with type change | Mixed types | Insert with string value: `(10, "string_value")`. Update with list: `(10, [1, 2, 3])`. Update again with dict: `(10, {"key": "value"})`. | Tree remains balanced after each update; new values retrieved correctly; old values replaced. |
