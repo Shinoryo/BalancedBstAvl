@@ -375,38 +375,38 @@ def test_set_update_right_right() -> None:
 
 
 @pytest.mark.get
-def test_get_from_root_exists() -> None:
-    """Test getting value from root that exists."""
+def test_get_from_root_found() -> None:
+    """Test getting value from root when key is found."""
     t = AVLTree(10, "a")
     assert t.get(10) == "a"
 
 
 @pytest.mark.get
-def test_get_from_root_not_exists() -> None:
-    """Test getting value from root that doesn't exist."""
+def test_get_from_root_not_found() -> None:
+    """Test getting value from root when key is not found."""
     t = AVLTree()
     assert t.get(5) is None
 
 
 @pytest.mark.get
-def test_get_from_left_exists() -> None:
-    """Test getting value from left that exists."""
+def test_get_from_left_found() -> None:
+    """Test getting value from left when key is found."""
     t = AVLTree(10, "a")
     t._l = AVLTree(5, "b")
     assert t.get(5) == "b"
 
 
 @pytest.mark.get
-def test_get_from_left_not_exists() -> None:
-    """Test getting value from left that doesn't exist."""
+def test_get_from_left_not_found() -> None:
+    """Test getting value from left when key is not found."""
     t = AVLTree(10, "a")
     t._l = AVLTree(5, "b")
     assert t.get(3) is None
 
 
 @pytest.mark.get
-def test_get_from_left_left_exists() -> None:
-    """Test getting value from left-left that exists."""
+def test_get_from_left_left_found() -> None:
+    """Test getting value from left-left when key is found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -415,8 +415,8 @@ def test_get_from_left_left_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_left_left_not_exists() -> None:
-    """Test getting value from left-left that doesn't exist."""
+def test_get_from_left_left_not_found() -> None:
+    """Test getting value from left-left when key is not found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -425,8 +425,8 @@ def test_get_from_left_left_not_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_left_right_exists() -> None:
-    """Test getting value from left-right that exists."""
+def test_get_from_left_right_found() -> None:
+    """Test getting value from left-right when key is found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -436,8 +436,8 @@ def test_get_from_left_right_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_left_right_not_exists() -> None:
-    """Test getting value from left-right that doesn't exist."""
+def test_get_from_left_right_not_found() -> None:
+    """Test getting value from left-right when key is not found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -447,24 +447,24 @@ def test_get_from_left_right_not_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_right_exists() -> None:
-    """Test getting value from right that exists."""
+def test_get_from_right_found() -> None:
+    """Test getting value from right when key is found."""
     t = AVLTree(10, "a")
     t._r = AVLTree(15, "b")
     assert t.get(15) == "b"
 
 
 @pytest.mark.get
-def test_get_from_right_not_exists() -> None:
-    """Test getting value from right that doesn't exist."""
+def test_get_from_right_not_found() -> None:
+    """Test getting value from right when key is not found."""
     t = AVLTree(10, "a")
     t._r = AVLTree(15, "b")
     assert t.get(20) is None
 
 
 @pytest.mark.get
-def test_get_from_right_left_exists() -> None:
-    """Test getting value from right-left that exists."""
+def test_get_from_right_left_found() -> None:
+    """Test getting value from right-left when key is found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "c")
     t._r = AVLTree(40, "b")
@@ -474,8 +474,8 @@ def test_get_from_right_left_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_right_left_not_exists() -> None:
-    """Test getting value from right-left that doesn't exist."""
+def test_get_from_right_left_not_found() -> None:
+    """Test getting value from right-left when key is not found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "c")
     t._r = AVLTree(40, "b")
@@ -485,8 +485,8 @@ def test_get_from_right_left_not_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_right_right_exists() -> None:
-    """Test getting value from right-right that exists."""
+def test_get_from_right_right_found() -> None:
+    """Test getting value from right-right when key is found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "b")
     t._r = AVLTree(30, "c")
@@ -495,8 +495,8 @@ def test_get_from_right_right_exists() -> None:
 
 
 @pytest.mark.get
-def test_get_from_right_right_not_exists() -> None:
-    """Test getting value from right-right that doesn't exist."""
+def test_get_from_right_right_not_found() -> None:
+    """Test getting value from right-right when key is not found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "b")
     t._r = AVLTree(30, "c")
@@ -522,38 +522,38 @@ def test_get_default_specified() -> None:
 
 
 @pytest.mark.find
-def test_find_root_exists() -> None:
-    """Test finding root that exists."""
+def test_find_root_found() -> None:
+    """Test finding root when key is found."""
     t = AVLTree(10, "a")
     assert t.find(10) is True
 
 
 @pytest.mark.find
-def test_find_root_not_exists() -> None:
-    """Test finding root that doesn't exist."""
+def test_find_root_not_found() -> None:
+    """Test finding root when key is not found."""
     t = AVLTree()
     assert t.find(5) is False
 
 
 @pytest.mark.find
-def test_find_left_exists() -> None:
-    """Test finding left node that exists."""
+def test_find_left_found() -> None:
+    """Test finding left node when key is found."""
     t = AVLTree(10, "a")
     t._l = AVLTree(5, "b")
     assert t.find(5) is True
 
 
 @pytest.mark.find
-def test_find_left_not_exists() -> None:
-    """Test finding left node that doesn't exist."""
+def test_find_left_not_found() -> None:
+    """Test finding left node when key is not found."""
     t = AVLTree(10, "a")
     t._l = AVLTree(5, "b")
     assert t.find(3) is False
 
 
 @pytest.mark.find
-def test_find_left_left_exists() -> None:
-    """Test finding left-left node that exists."""
+def test_find_left_left_found() -> None:
+    """Test finding left-left node when key is found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -562,8 +562,8 @@ def test_find_left_left_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_left_left_not_exists() -> None:
-    """Test finding left-left node that doesn't exist."""
+def test_find_left_left_not_found() -> None:
+    """Test finding left-left node when key is not found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -572,8 +572,8 @@ def test_find_left_left_not_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_left_right_exists() -> None:
-    """Test finding left-right node that exists."""
+def test_find_left_right_found() -> None:
+    """Test finding left-right node when key is found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -583,8 +583,8 @@ def test_find_left_right_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_left_right_not_exists() -> None:
-    """Test finding left-right node that doesn't exist."""
+def test_find_left_right_not_found() -> None:
+    """Test finding left-right node when key is not found."""
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
@@ -594,24 +594,24 @@ def test_find_left_right_not_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_right_exists() -> None:
-    """Test finding right node that exists."""
+def test_find_right_found() -> None:
+    """Test finding right node when key is found."""
     t = AVLTree(10, "a")
     t._r = AVLTree(15, "b")
     assert t.find(15) is True
 
 
 @pytest.mark.find
-def test_find_right_not_exists() -> None:
-    """Test finding right node that doesn't exist."""
+def test_find_right_not_found() -> None:
+    """Test finding right node when key is not found."""
     t = AVLTree(10, "a")
     t._r = AVLTree(15, "b")
     assert t.find(20) is False
 
 
 @pytest.mark.find
-def test_find_right_left_exists() -> None:
-    """Test finding right-left node that exists."""
+def test_find_right_left_found() -> None:
+    """Test finding right-left node when key is found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "c")
     t._r = AVLTree(40, "b")
@@ -621,8 +621,8 @@ def test_find_right_left_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_right_left_not_exists() -> None:
-    """Test finding right-left node that doesn't exist."""
+def test_find_right_left_not_found() -> None:
+    """Test finding right-left node when key is not found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "c")
     t._r = AVLTree(40, "b")
@@ -632,8 +632,8 @@ def test_find_right_left_not_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_right_right_exists() -> None:
-    """Test finding right-right node that exists."""
+def test_find_right_right_found() -> None:
+    """Test finding right-right node when key is found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "b")
     t._r = AVLTree(30, "c")
@@ -642,8 +642,8 @@ def test_find_right_right_exists() -> None:
 
 
 @pytest.mark.find
-def test_find_right_right_not_exists() -> None:
-    """Test finding right-right node that doesn't exist."""
+def test_find_right_right_not_found() -> None:
+    """Test finding right-right node when key is not found."""
     t = AVLTree(20, "a")
     t._l = AVLTree(10, "b")
     t._r = AVLTree(30, "c")
@@ -764,8 +764,8 @@ def test_delete_left_not_found() -> None:
 
 
 @pytest.mark.delete
-def test_delete_left_non_leaf() -> None:
-    """Test deleting non-leaf node from left."""
+def test_delete_left_with_children() -> None:
+    """Test deleting node with two children from left subtree."""
     left_left = AVLTree(20, "c")
     left_right = AVLTree(40, "d")
     left = AVLTree(30, "b")
@@ -946,8 +946,8 @@ def test_delete_right_not_found() -> None:
 
 
 @pytest.mark.delete
-def test_delete_right_non_leaf() -> None:
-    """Test deleting non-leaf node from right."""
+def test_delete_right_with_children() -> None:
+    """Test deleting node with two children from right subtree."""
     left = AVLTree(20, "b")
     right_left = AVLTree(50, "d")
     right = AVLTree(60, "c")

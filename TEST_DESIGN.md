@@ -54,20 +54,20 @@ This property is validated in every test through the `_assert_height_consistency
 
 | No. | Test Aspect | Precondition | Test Procedure | Expected Result |
 | --- | --- | --- | --- | --- |
-| 1-1 | Get from root (exists) | The tree has a root with key `10` and value `a`. | `t.get(10)` | `"a"` |
-| 1-2 | Get from root (not exists) | The tree is empty. | `t.get(5)` | `None` |
-| 2-1 | Get from left (exists) | The tree has keys `10` (root) and `5` (left), with `5` mapped to `b`. | `t.get(5)` | `"b"` |
-| 2-2 | Get from left (not exists) | The tree has keys `10` (root) and `5` (left). | `t.get(3)` | `None` |
-| 3-1 | Get from left-left (exists) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left), with `10` mapped to `d`. | `t.get(10)` | `"d"` |
-| 3-2 | Get from left-left (not exists) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.get(5)` | `None` |
-| 4-1 | Get from left-right (exists) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right), with `30` mapped to `e`. | `t.get(30)` | `"e"` |
-| 4-2 | Get from left-right (not exists) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.get(15)` | `None` |
-| 5-1 | Get from right (exists) | The tree has keys `10` (root) and `15` (right), with `15` mapped to `b`. | `t.get(15)` | `"b"` |
-| 5-2 | Get from right (not exists) | The tree has keys `10` (root) and `15` (right). | `t.get(20)` | `None` |
-| 6-1 | Get from right-left (exists) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right), with `30` mapped to `d`. | `t.get(30)` | `"d"` |
-| 6-2 | Get from right-left (not exists) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.get(25)` | `None` |
-| 7-1 | Get from right-right (exists) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right), with `40` mapped to `d`. | `t.get(40)` | `"d"` |
-| 7-2 | Get from right-right (not exists) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.get(35)` | `None` |
+| 1-1 | Get from root (found) | The tree has a root with key `10` and value `a`. | `t.get(10)` | `"a"` |
+| 1-2 | Get from root (not found) | The tree is empty. | `t.get(5)` | `None` |
+| 2-1 | Get from left (found) | The tree has keys `10` (root) and `5` (left), with `5` mapped to `b`. | `t.get(5)` | `"b"` |
+| 2-2 | Get from left (not found) | The tree has keys `10` (root) and `5` (left). | `t.get(3)` | `None` |
+| 3-1 | Get from left-left (found) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left), with `10` mapped to `d`. | `t.get(10)` | `"d"` |
+| 3-2 | Get from left-left (not found) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.get(5)` | `None` |
+| 4-1 | Get from left-right (found) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right), with `30` mapped to `e`. | `t.get(30)` | `"e"` |
+| 4-2 | Get from left-right (not found) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.get(15)` | `None` |
+| 5-1 | Get from right (found) | The tree has keys `10` (root) and `15` (right), with `15` mapped to `b`. | `t.get(15)` | `"b"` |
+| 5-2 | Get from right (not found) | The tree has keys `10` (root) and `15` (right). | `t.get(20)` | `None` |
+| 6-1 | Get from right-left (found) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right), with `30` mapped to `d`. | `t.get(30)` | `"d"` |
+| 6-2 | Get from right-left (not found) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.get(25)` | `None` |
+| 7-1 | Get from right-right (found) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right), with `40` mapped to `d`. | `t.get(40)` | `"d"` |
+| 7-2 | Get from right-right (not found) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.get(35)` | `None` |
 | 8-1 | Get with default (not specified) | The tree is empty. | `t.get(5)` | `None` |
 | 8-2 | Get with default (specified) | The tree is empty. | `t.get(5, "default")` | `"default"` |
 
@@ -75,20 +75,20 @@ This property is validated in every test through the `_assert_height_consistency
 
 | No. | Test Aspect | Precondition | Test Procedure | Expected Result |
 | --- | --- | --- | --- | --- |
-| 1-1 | Find root (exists) | The tree has a root with key `10` and value `a`. | `t.find(10)` | Returns `True` |
-| 1-2 | Find root (not exists) | The tree is empty. | `t.find(5)` | Returns `False` |
-| 2-1 | Find left (exists) | The tree has keys `10` (root) and `5` (left). | `t.find(5)` | Returns `True` |
-| 2-2 | Find left (not exists) | The tree has keys `10` (root) and `5` (left). | `t.find(3)` | Returns `False` |
-| 3-1 | Find left-left (exists) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.find(10)` | Returns `True` |
-| 3-2 | Find left-left (not exists) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.find(5)` | Returns `False` |
-| 4-1 | Find left-right (exists) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.find(30)` | Returns `True` |
-| 4-2 | Find left-right (not exists) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.find(15)` | Returns `False` |
-| 5-1 | Find right (exists) | The tree has keys `10` (root) and `15` (right). | `t.find(15)` | Returns `True` |
-| 5-2 | Find right (not exists) | The tree has keys `10` (root) and `15` (right). | `t.find(20)` | Returns `False` |
-| 6-1 | Find right-left (exists) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.find(30)` | Returns `True` |
-| 6-2 | Find right-left (not exists) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.find(25)` | Returns `False` |
-| 7-1 | Find right-right (exists) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.find(40)` | Returns `True` |
-| 7-2 | Find right-right (not exists) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.find(35)` | Returns `False` |
+| 1-1 | Find root (found) | The tree has a root with key `10` and value `a`. | `t.find(10)` | Returns `True` |
+| 1-2 | Find root (not found) | The tree is empty. | `t.find(5)` | Returns `False` |
+| 2-1 | Find left (found) | The tree has keys `10` (root) and `5` (left). | `t.find(5)` | Returns `True` |
+| 2-2 | Find left (not found) | The tree has keys `10` (root) and `5` (left). | `t.find(3)` | Returns `False` |
+| 3-1 | Find left-left (found) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.find(10)` | Returns `True` |
+| 3-2 | Find left-left (not found) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.find(5)` | Returns `False` |
+| 4-1 | Find left-right (found) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.find(30)` | Returns `True` |
+| 4-2 | Find left-right (not found) | The tree has keys `40` (root), `20` (left), `60` (right), `10` (left-left), and `30` (left-right). | `t.find(15)` | Returns `False` |
+| 5-1 | Find right (found) | The tree has keys `10` (root) and `15` (right). | `t.find(15)` | Returns `True` |
+| 5-2 | Find right (not found) | The tree has keys `10` (root) and `15` (right). | `t.find(20)` | Returns `False` |
+| 6-1 | Find right-left (found) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.find(30)` | Returns `True` |
+| 6-2 | Find right-left (not found) | The tree has keys `20` (root), `10` (left), `40` (right), `30` (right-left), and `50` (right-right). | `t.find(25)` | Returns `False` |
+| 7-1 | Find right-right (found) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.find(40)` | Returns `True` |
+| 7-2 | Find right-right (not found) | The tree has keys `20` (root), `10` (left), `30` (right), and `40` (right-right). | `t.find(35)` | Returns `False` |
 
 ## 5. `delete(x: int) → AVLTree`
 
@@ -101,7 +101,7 @@ This property is validated in every test through the `_assert_height_consistency
 | 2-1 | Delete from left (no rebalance) | The tree has keys `30` (root), `10` (left), and `40` (right). | `t.delete(10)` | Deleted key is removed and balance is preserved. |
 | 2-2 | Delete from left (with rebalance) | The tree has keys `50` (root), `30` (left), `70` (right), `20` (left-left), and `10` (left-left-left). | `t.delete(70)` | Rebalancing occurs after deletion and balance is preserved. |
 | 2-3 | Delete from left (not found) | The tree has keys `30` (root) and `10` (left). | `t.delete(5)` | Tree remains unchanged and balance is preserved. |
-| 2-4 | Delete from left (non-leaf) | The tree has keys `50` (root), `30` (left), `20` (left-left), and `40` (left-right). | `t.delete(30)` | Deleted key is removed and balance is preserved. |
+| 2-4 | Delete from left (with children) | The tree has keys `50` (root), `30` (left), `20` (left-left), and `40` (left-right). | `t.delete(30)` | Deleted key is removed and balance is preserved. |
 | 3-1 | Delete from left-left (no rebalance) | The tree has keys `40` (root), `20` (left), `60` (right), and `10` (left-left). | `t.delete(10)` | Deleted key is removed and balance is preserved. |
 | 3-2 | Delete from left-left (with rebalance) | The tree has keys `60` (root), `40` (left), `80` (right), `30` (left-left), and `20` (left-left-left). | `t.delete(80)` | Rebalancing occurs after deletion and balance is preserved. |
 | 3-3 | Delete from left-left (not found) | The tree has keys `40` (root) and `20` (left). | `t.delete(5)` | Tree remains unchanged and balance is preserved. |
@@ -111,7 +111,7 @@ This property is validated in every test through the `_assert_height_consistency
 | 5-1 | Delete from right (no rebalance) | The tree has keys `10` (root) and `15` (right). | `t.delete(15)` | Deleted key is removed and balance is preserved. |
 | 5-2 | Delete from right (with rebalance) | The tree has keys `20` (root), `10` (left), `30` (right), `40` (right-right), and `50` (right-right-right). | `t.delete(10)` | Rebalancing occurs after deletion and balance is preserved. |
 | 5-3 | Delete from right (not found) | The tree has keys `10` (root) and `15` (right). | `t.delete(20)` | Tree remains unchanged and balance is preserved. |
-| 5-4 | Delete from right (non-leaf) | The tree has keys `40` (root), `20` (left), `60` (right), and `50` (right-left). | `t.delete(50)` | Deleted key is removed and balance is preserved. |
+| 5-4 | Delete from right (with children) | The tree has keys `40` (root), `20` (left), `60` (right), and `50` (right-left). | `t.delete(50)` | Deleted key is removed and balance is preserved. |
 | 6-1 | Delete from right-left (no rebalance) | The tree has keys `20` (root), `40` (right), `10` (left), `30` (right-left), and `50` (right-right). | `t.delete(30)` | Deleted key is removed and balance is preserved. |
 | 6-2 | Delete from right-left (with rebalance) | The tree has keys `30` (root), `10` (left), `50` (right), `5` (left-left), `15` (left-right), and `12` (left-right-left). | `t.delete(5)` | Rebalancing occurs after deletion and balance is preserved. |
 | 6-3 | Delete from right-left (not found) | The tree has keys `20` (root), `40` (right), and `10` (left). | `t.delete(25)` | Tree remains unchanged and balance is preserved. |
