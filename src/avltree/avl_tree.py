@@ -81,12 +81,8 @@ class AVLTree:
         if x == self._key:
             return True
         if x < self._key:
-            if self._l:
-                return self._l.find(x)
-            return False
-        if self._r:
-            return self._r.find(x)
-        return False
+            return self._l.find(x) if self._l else False
+        return self._r.find(x) if self._r else False
 
     def get(self, x: int, default: Any = None) -> Any:
         """Retrieve the value associated with key x.
@@ -103,12 +99,8 @@ class AVLTree:
         if x == self._key:
             return self._value
         if x < self._key:
-            if self._l:
-                return self._l.get(x, default)
-            return default
-        if self._r:
-            return self._r.get(x, default)
-        return default
+            return self._l.get(x, default) if self._l else default
+        return self._r.get(x, default) if self._r else default
 
     def items(self) -> list[tuple[int, Any]]:
         """Return all (key, value) pairs in the tree in ascending key order.
