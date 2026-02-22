@@ -5,7 +5,7 @@ from avltree import AVLTree
 # ==================== 1. __init__ (Constructor) ====================
 
 @pytest.mark.init
-def test_init_empty():
+def test_init_empty() -> None:
     """Test AVLTree() creates empty tree with all attributes set to defaults."""
     t = AVLTree()
     assert t._key is None
@@ -16,7 +16,7 @@ def test_init_empty():
 
 
 @pytest.mark.init
-def test_init_with_key():
+def test_init_with_key() -> None:
     """Test AVLTree(10) creates tree with key, height=1, value=None."""
     t = AVLTree(10)
     assert t._key == 10
@@ -27,7 +27,7 @@ def test_init_with_key():
 
 
 @pytest.mark.init
-def test_init_with_key_and_value():
+def test_init_with_key_and_value() -> None:
     """Test AVLTree(5, 'val') creates tree with key and value."""
     t = AVLTree(5, "val")
     assert t._key == 5
@@ -38,7 +38,7 @@ def test_init_with_key_and_value():
 # ==================== 2. set(x: int, value: Any) ====================
 
 @pytest.mark.set
-def test_set_to_empty_tree():
+def test_set_to_empty_tree() -> None:
     """Test adding a node to an empty tree."""
     t = AVLTree()
     t = t.set(5, "a")
@@ -47,7 +47,7 @@ def test_set_to_empty_tree():
 
 
 @pytest.mark.set
-def test_set_update_root():
+def test_set_update_root() -> None:
     """Test updating the root node."""
     t = AVLTree()
     t = t.set(5, "old")
@@ -57,7 +57,7 @@ def test_set_update_root():
 
 
 @pytest.mark.set
-def test_set_insert_left():
+def test_set_insert_left() -> None:
     """Test inserting a node to the left of root."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -68,7 +68,7 @@ def test_set_insert_left():
 
 
 @pytest.mark.set
-def test_set_update_left():
+def test_set_update_left() -> None:
     """Test updating a node to the left of root."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -78,7 +78,7 @@ def test_set_update_left():
 
 
 @pytest.mark.set
-def test_set_left_left_no_rebalance():
+def test_set_left_left_no_rebalance() -> None:
     """Test inserting a node to the left-left without rebalancing."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -90,7 +90,7 @@ def test_set_left_left_no_rebalance():
 
 
 @pytest.mark.set
-def test_set_left_left_with_rebalance():
+def test_set_left_left_with_rebalance() -> None:
     """Test inserting a node to the left-left with rebalancing."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -102,7 +102,7 @@ def test_set_left_left_with_rebalance():
 
 
 @pytest.mark.set
-def test_set_update_left_left():
+def test_set_update_left_left() -> None:
     """Test updating a node to the left-left of root."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -115,7 +115,7 @@ def test_set_update_left_left():
 
 
 @pytest.mark.set
-def test_set_left_right_no_rebalance():
+def test_set_left_right_no_rebalance() -> None:
     """Test inserting a node to the left-right without rebalancing."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -125,7 +125,7 @@ def test_set_left_right_no_rebalance():
 
 
 @pytest.mark.set
-def test_set_left_right_with_rebalance():
+def test_set_left_right_with_rebalance() -> None:
     """Test inserting a node to the left-right with rebalancing."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -137,7 +137,7 @@ def test_set_left_right_with_rebalance():
 
 
 @pytest.mark.set
-def test_set_update_left_right():
+def test_set_update_left_right() -> None:
     """Test updating a node to the left-right of root."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -148,7 +148,7 @@ def test_set_update_left_right():
 
 
 @pytest.mark.set
-def test_set_insert_right():
+def test_set_insert_right() -> None:
     """Test inserting a node to the right of root."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -159,7 +159,7 @@ def test_set_insert_right():
 
 
 @pytest.mark.set
-def test_set_update_right():
+def test_set_update_right() -> None:
     """Test updating a node to the right of root."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -169,7 +169,7 @@ def test_set_update_right():
 
 
 @pytest.mark.set
-def test_set_right_left_no_rebalance():
+def test_set_right_left_no_rebalance() -> None:
     """Test inserting a node to the right-left without rebalancing."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -180,7 +180,7 @@ def test_set_right_left_no_rebalance():
 
 
 @pytest.mark.set
-def test_set_right_left_with_rebalance():
+def test_set_right_left_with_rebalance() -> None:
     """Test inserting a node to the right-left with rebalancing."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -192,7 +192,7 @@ def test_set_right_left_with_rebalance():
 
 
 @pytest.mark.set
-def test_set_update_right_left():
+def test_set_update_right_left() -> None:
     """Test updating a node to the right-left of root."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -204,7 +204,7 @@ def test_set_update_right_left():
 
 
 @pytest.mark.set
-def test_set_right_right_no_rebalance():
+def test_set_right_right_no_rebalance() -> None:
     """Test inserting a node to the right-right without rebalancing."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -215,7 +215,7 @@ def test_set_right_right_no_rebalance():
 
 
 @pytest.mark.set
-def test_set_right_right_with_rebalance():
+def test_set_right_right_with_rebalance() -> None:
     """Test inserting a node to the right-right with rebalancing."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -227,7 +227,7 @@ def test_set_right_right_with_rebalance():
 
 
 @pytest.mark.set
-def test_set_update_right_right():
+def test_set_update_right_right() -> None:
     """Test updating a node to the right-right of root."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -241,7 +241,7 @@ def test_set_update_right_right():
 # ==================== 3. get(x: int, default=None) ====================
 
 @pytest.mark.get
-def test_get_from_root_exists():
+def test_get_from_root_exists() -> None:
     """Test getting value from root that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -249,14 +249,14 @@ def test_get_from_root_exists():
 
 
 @pytest.mark.get
-def test_get_from_root_not_exists():
+def test_get_from_root_not_exists() -> None:
     """Test getting value from root that doesn't exist."""
     t = AVLTree()
     assert t.get(5) is None
 
 
 @pytest.mark.get
-def test_get_from_left_exists():
+def test_get_from_left_exists() -> None:
     """Test getting value from left that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -265,7 +265,7 @@ def test_get_from_left_exists():
 
 
 @pytest.mark.get
-def test_get_from_left_not_exists():
+def test_get_from_left_not_exists() -> None:
     """Test getting value from left that doesn't exist."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -274,7 +274,7 @@ def test_get_from_left_not_exists():
 
 
 @pytest.mark.get
-def test_get_from_left_left_exists():
+def test_get_from_left_left_exists() -> None:
     """Test getting value from left-left that exists."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -285,7 +285,7 @@ def test_get_from_left_left_exists():
 
 
 @pytest.mark.get
-def test_get_from_left_left_not_exists():
+def test_get_from_left_left_not_exists() -> None:
     """Test getting value from left-left that doesn't exist."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -296,7 +296,7 @@ def test_get_from_left_left_not_exists():
 
 
 @pytest.mark.get
-def test_get_from_left_right_exists():
+def test_get_from_left_right_exists() -> None:
     """Test getting value from left-right that exists."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -308,7 +308,7 @@ def test_get_from_left_right_exists():
 
 
 @pytest.mark.get
-def test_get_from_left_right_not_exists():
+def test_get_from_left_right_not_exists() -> None:
     """Test getting value from left-right that doesn't exist."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -320,7 +320,7 @@ def test_get_from_left_right_not_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_exists():
+def test_get_from_right_exists() -> None:
     """Test getting value from right that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -329,7 +329,7 @@ def test_get_from_right_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_not_exists():
+def test_get_from_right_not_exists() -> None:
     """Test getting value from right that doesn't exist."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -338,7 +338,7 @@ def test_get_from_right_not_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_left_exists():
+def test_get_from_right_left_exists() -> None:
     """Test getting value from right-left that exists."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -350,7 +350,7 @@ def test_get_from_right_left_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_left_not_exists():
+def test_get_from_right_left_not_exists() -> None:
     """Test getting value from right-left that doesn't exist."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -362,7 +362,7 @@ def test_get_from_right_left_not_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_right_exists():
+def test_get_from_right_right_exists() -> None:
     """Test getting value from right-right that exists."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -373,7 +373,7 @@ def test_get_from_right_right_exists():
 
 
 @pytest.mark.get
-def test_get_from_right_right_not_exists():
+def test_get_from_right_right_not_exists() -> None:
     """Test getting value from right-right that doesn't exist."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -384,14 +384,14 @@ def test_get_from_right_right_not_exists():
 
 
 @pytest.mark.get
-def test_get_default_not_specified():
+def test_get_default_not_specified() -> None:
     """Test get with default value not specified."""
     t = AVLTree()
     assert t.get(5) is None
 
 
 @pytest.mark.get
-def test_get_default_specified():
+def test_get_default_specified() -> None:
     """Test get with default value specified."""
     t = AVLTree()
     assert t.get(5, "default") == "default"
@@ -400,7 +400,7 @@ def test_get_default_specified():
 # ==================== 4. find(x: int) ====================
 
 @pytest.mark.find
-def test_find_root_exists():
+def test_find_root_exists() -> None:
     """Test finding root that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -408,14 +408,14 @@ def test_find_root_exists():
 
 
 @pytest.mark.find
-def test_find_root_not_exists():
+def test_find_root_not_exists() -> None:
     """Test finding root that doesn't exist."""
     t = AVLTree()
     assert t.find(5) is False
 
 
 @pytest.mark.find
-def test_find_left_exists():
+def test_find_left_exists() -> None:
     """Test finding left node that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -424,7 +424,7 @@ def test_find_left_exists():
 
 
 @pytest.mark.find
-def test_find_left_not_exists():
+def test_find_left_not_exists() -> None:
     """Test finding left node that doesn't exist."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -433,7 +433,7 @@ def test_find_left_not_exists():
 
 
 @pytest.mark.find
-def test_find_left_left_exists():
+def test_find_left_left_exists() -> None:
     """Test finding left-left node that exists."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -444,7 +444,7 @@ def test_find_left_left_exists():
 
 
 @pytest.mark.find
-def test_find_left_left_not_exists():
+def test_find_left_left_not_exists() -> None:
     """Test finding left-left node that doesn't exist."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -455,7 +455,7 @@ def test_find_left_left_not_exists():
 
 
 @pytest.mark.find
-def test_find_left_right_exists():
+def test_find_left_right_exists() -> None:
     """Test finding left-right node that exists."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -467,7 +467,7 @@ def test_find_left_right_exists():
 
 
 @pytest.mark.find
-def test_find_left_right_not_exists():
+def test_find_left_right_not_exists() -> None:
     """Test finding left-right node that doesn't exist."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -479,7 +479,7 @@ def test_find_left_right_not_exists():
 
 
 @pytest.mark.find
-def test_find_right_exists():
+def test_find_right_exists() -> None:
     """Test finding right node that exists."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -488,7 +488,7 @@ def test_find_right_exists():
 
 
 @pytest.mark.find
-def test_find_right_not_exists():
+def test_find_right_not_exists() -> None:
     """Test finding right node that doesn't exist."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -497,7 +497,7 @@ def test_find_right_not_exists():
 
 
 @pytest.mark.find
-def test_find_right_left_exists():
+def test_find_right_left_exists() -> None:
     """Test finding right-left node that exists."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -509,7 +509,7 @@ def test_find_right_left_exists():
 
 
 @pytest.mark.find
-def test_find_right_left_not_exists():
+def test_find_right_left_not_exists() -> None:
     """Test finding right-left node that doesn't exist."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -521,7 +521,7 @@ def test_find_right_left_not_exists():
 
 
 @pytest.mark.find
-def test_find_right_right_exists():
+def test_find_right_right_exists() -> None:
     """Test finding right-right node that exists."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -532,7 +532,7 @@ def test_find_right_right_exists():
 
 
 @pytest.mark.find
-def test_find_right_right_not_exists():
+def test_find_right_right_not_exists() -> None:
     """Test finding right-right node that doesn't exist."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -545,7 +545,7 @@ def test_find_right_right_not_exists():
 # ==================== 5. delete(x: int) ====================
 
 @pytest.mark.delete
-def test_delete_root_no_rebalance():
+def test_delete_root_no_rebalance() -> None:
     """Test deleting root without rebalancing needed."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -555,7 +555,7 @@ def test_delete_root_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_root_with_rebalance():
+def test_delete_root_with_rebalance() -> None:
     """Test deleting root with rebalancing needed."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -569,7 +569,7 @@ def test_delete_root_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_root_not_found():
+def test_delete_root_not_found() -> None:
     """Test deleting from root when target not found."""
     t = AVLTree()
     original_items = t.items()
@@ -578,7 +578,7 @@ def test_delete_root_not_found():
 
 
 @pytest.mark.delete
-def test_delete_root_leaf():
+def test_delete_root_leaf() -> None:
     """Test deleting root when it's a leaf."""
     t = AVLTree()
     t = t.set(5, "a")
@@ -587,7 +587,7 @@ def test_delete_root_leaf():
 
 
 @pytest.mark.delete
-def test_delete_left_no_rebalance():
+def test_delete_left_no_rebalance() -> None:
     """Test deleting from left without rebalancing needed."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -598,7 +598,7 @@ def test_delete_left_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_with_rebalance():
+def test_delete_left_with_rebalance() -> None:
     """Test deleting from left with rebalancing needed."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -612,7 +612,7 @@ def test_delete_left_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_not_found():
+def test_delete_left_not_found() -> None:
     """Test deleting from left when target not found."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -623,7 +623,7 @@ def test_delete_left_not_found():
 
 
 @pytest.mark.delete
-def test_delete_left_non_leaf():
+def test_delete_left_non_leaf() -> None:
     """Test deleting non-leaf node from left."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -636,7 +636,7 @@ def test_delete_left_non_leaf():
 
 
 @pytest.mark.delete
-def test_delete_left_left_no_rebalance():
+def test_delete_left_left_no_rebalance() -> None:
     """Test deleting from left-left without rebalancing needed."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -648,7 +648,7 @@ def test_delete_left_left_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_left_with_rebalance():
+def test_delete_left_left_with_rebalance() -> None:
     """Test deleting from left-left with rebalancing needed."""
     t = AVLTree()
     t = t.set(60, "a")
@@ -662,7 +662,7 @@ def test_delete_left_left_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_left_not_found():
+def test_delete_left_left_not_found() -> None:
     """Test deleting from left-left when target not found."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -673,7 +673,7 @@ def test_delete_left_left_not_found():
 
 
 @pytest.mark.delete
-def test_delete_left_right_no_rebalance():
+def test_delete_left_right_no_rebalance() -> None:
     """Test deleting from left-right without rebalancing needed."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -686,7 +686,7 @@ def test_delete_left_right_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_right_with_rebalance():
+def test_delete_left_right_with_rebalance() -> None:
     """Test deleting from left-right with rebalancing needed."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -701,7 +701,7 @@ def test_delete_left_right_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_left_right_not_found():
+def test_delete_left_right_not_found() -> None:
     """Test deleting from left-right when target not found."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -713,7 +713,7 @@ def test_delete_left_right_not_found():
 
 
 @pytest.mark.delete
-def test_delete_right_no_rebalance():
+def test_delete_right_no_rebalance() -> None:
     """Test deleting from right without rebalancing needed."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -723,7 +723,7 @@ def test_delete_right_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_with_rebalance():
+def test_delete_right_with_rebalance() -> None:
     """Test deleting from right with rebalancing needed."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -737,7 +737,7 @@ def test_delete_right_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_not_found():
+def test_delete_right_not_found() -> None:
     """Test deleting from right when target not found."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -748,7 +748,7 @@ def test_delete_right_not_found():
 
 
 @pytest.mark.delete
-def test_delete_right_non_leaf():
+def test_delete_right_non_leaf() -> None:
     """Test deleting non-leaf node from right."""
     t = AVLTree()
     t = t.set(40, "a")
@@ -761,7 +761,7 @@ def test_delete_right_non_leaf():
 
 
 @pytest.mark.delete
-def test_delete_right_left_no_rebalance():
+def test_delete_right_left_no_rebalance() -> None:
     """Test deleting from right-left without rebalancing needed."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -774,7 +774,7 @@ def test_delete_right_left_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_left_with_rebalance():
+def test_delete_right_left_with_rebalance() -> None:
     """Test deleting from right-left with rebalancing needed."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -789,7 +789,7 @@ def test_delete_right_left_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_left_not_found():
+def test_delete_right_left_not_found() -> None:
     """Test deleting from right-left when target not found."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -801,7 +801,7 @@ def test_delete_right_left_not_found():
 
 
 @pytest.mark.delete
-def test_delete_right_right_no_rebalance():
+def test_delete_right_right_no_rebalance() -> None:
     """Test deleting from right-right without rebalancing needed."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -813,7 +813,7 @@ def test_delete_right_right_no_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_right_with_rebalance():
+def test_delete_right_right_with_rebalance() -> None:
     """Test deleting from right-right with rebalancing needed."""
     t = AVLTree()
     t = t.set(10, "a")
@@ -827,7 +827,7 @@ def test_delete_right_right_with_rebalance():
 
 
 @pytest.mark.delete
-def test_delete_right_right_not_found():
+def test_delete_right_right_not_found() -> None:
     """Test deleting from right-right when target not found."""
     t = AVLTree()
     t = t.set(20, "a")
@@ -839,7 +839,7 @@ def test_delete_right_right_not_found():
 
 
 @pytest.mark.delete
-def test_delete_2child_successor_is_leaf():
+def test_delete_2child_successor_is_leaf() -> None:
     """Test deleting 2-child node where successor is leaf."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -856,7 +856,7 @@ def test_delete_2child_successor_is_leaf():
 
 
 @pytest.mark.delete
-def test_delete_2child_successor_has_right_child():
+def test_delete_2child_successor_has_right_child() -> None:
     """Test deleting 2-child node where successor has right child."""
     t = AVLTree()
     t = t.set(30, "a")
@@ -872,7 +872,7 @@ def test_delete_2child_successor_has_right_child():
 
 
 @pytest.mark.delete
-def test_delete_2child_with_rebalance():
+def test_delete_2child_with_rebalance() -> None:
     """Test deleting 2-child node with rebalancing after replacement."""
     t = AVLTree()
     t = t.set(50, "a")
@@ -896,14 +896,14 @@ def test_delete_2child_with_rebalance():
 # ==================== 6. items() ====================
 
 @pytest.mark.items
-def test_items_empty_tree():
+def test_items_empty_tree() -> None:
     """Test items() on empty tree."""
     t = AVLTree()
     assert t.items() == []
 
 
 @pytest.mark.items
-def test_items_single_node():
+def test_items_single_node() -> None:
     """Test items() with single node."""
     t = AVLTree()
     t = t.set(5, "a")
@@ -911,7 +911,7 @@ def test_items_single_node():
 
 
 @pytest.mark.items
-def test_items_two_nodes_ascending():
+def test_items_two_nodes_ascending() -> None:
     """Test items() with two nodes inserted in ascending order."""
     t = AVLTree()
     t = t.set(1, "a")
@@ -920,7 +920,7 @@ def test_items_two_nodes_ascending():
 
 
 @pytest.mark.items
-def test_items_two_nodes_descending():
+def test_items_two_nodes_descending() -> None:
     """Test items() with two nodes inserted in descending order."""
     t = AVLTree()
     t = t.set(2, "a")
@@ -929,7 +929,7 @@ def test_items_two_nodes_descending():
 
 
 @pytest.mark.items
-def test_items_three_nodes_ascending():
+def test_items_three_nodes_ascending() -> None:
     """Test items() with three nodes inserted in ascending order."""
     t = AVLTree()
     t = t.set(1, "a")
@@ -939,7 +939,7 @@ def test_items_three_nodes_ascending():
 
 
 @pytest.mark.items
-def test_items_three_nodes_descending():
+def test_items_three_nodes_descending() -> None:
     """Test items() with three nodes inserted in descending order."""
     t = AVLTree()
     t = t.set(3, "a")
@@ -949,7 +949,7 @@ def test_items_three_nodes_descending():
 
 
 @pytest.mark.items
-def test_items_three_nodes_mixed():
+def test_items_three_nodes_mixed() -> None:
     """Test items() with three nodes inserted in mixed order."""
     t = AVLTree()
     t = t.set(2, "a")
