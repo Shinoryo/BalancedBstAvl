@@ -18,13 +18,78 @@ This property is validated in every test through the `_assert_height_consistency
   - `1 + max(height(left_child), height(right_child))` for non-empty nodes
   - Must be correctly updated after insertions, deletions, and rotations
 
+## Test Design Approach
+
+### Layered Testing Strategy
+
+The test suite follows a **Layered Testing Approach** to balance test independence with practical maintainability:
+
+```text
+Layer 1: Foundation (Fully Independent)
+├─ __init__()
+└─ set()
+   │
+   ├─── Layer 2: Core Operations (Depend on set())
+   │    ├─ get()
+   │    ├─ find()
+   │    ├─ items()
+   │    └─ delete()
+   │
+   └─── Layer 3: Integration & Performance (Depend on all public APIs)
+        ├─ Value type tests
+        ├─ State transition tests (0/1/2-switch coverage)
+        └─ Large-scale performance tests
+```
+
+#### Rationale
+
+**Layer 1 (Foundation)**: The `__init__()` and `set()` methods are tested with complete independence. These are the most fundamental operations and form the basis for constructing test fixtures.
+
+**Layer 2 (Core Operations)**: Methods like `get()`, `find()`, `items()`, and `delete()` use `set()` to construct their test fixtures. This approach:
+
+- **Avoids coupling to internal implementation**: Tests use only public APIs (`set()`) instead of directly manipulating internal fields (`_l`, `_r`, `_h`)
+- **Ensures correctness**: Trees constructed via `set()` automatically maintain AVL properties (balance, height consistency)
+- **Improves maintainability**: If internal tree structure changes, tests remain valid
+- **Reflects real usage**: Tests mirror how users would actually use the API
+
+**Layer 3 (Integration & Performance)**: These tests combine multiple operations to verify complex scenarios and scalability.
+
+#### What We Avoid
+
+❌ **Manual tree construction** (problematic approach):
+
+```python
+# Avoid: Direct manipulation of internal fields
+t = AVLTree(10, "a")
+t._l = AVLTree(-5, "b")  # Direct field access
+t._h = 2  # Manual height setting
+_rebuild_heights(t)  # Requires special helper function
+```
+
+✅ **Public API construction** (recommended approach):
+
+```python
+# Recommended: Use public API
+t = AVLTree()
+t = t.set(10, "a")
+t = t.set(-5, "b")  # Heights and balance maintained automatically
+```
+
+#### Benefits of This Approach
+
+1. **Resilience to Refactoring**: Internal implementation changes don't break tests
+2. **Automatic Correctness**: `set()` ensures all AVL properties are maintained
+3. **Readable Tests**: Clear intent without implementation details
+4. **No Special Helpers**: Eliminates need for utilities like `_rebuild_heights()`
+5. **Realistic Testing**: Tests use the same APIs as end users
+
 ## 1. `__init__` (Constructor)
 
 | No. | Test Aspect | Verification Content | Precondition | Test Procedure | Expected Result |
 | --- | --- | --- | --- | --- | --- |
 | 1-1 | `key` specification | None | No precondition. | `AVLTree()` | Internal attributes are `_key=None`, `_value=None`, `_h=0`, `_l=None`, `_r=None` |
 | 1-2 | `key` specification | Present | No precondition. | `AVLTree(0)` | Internal attributes are `_key=0`, `_value=None`, `_h=1` |
-| 2-1 | `value` specification | None | No precondition. | - | NN (verified in 1-2) |
+| 2-1 | `value` specification | None | No precondition. | - | N/A (verified in 1-2) |
 | 2-2 | `value` specification | Present | No precondition. | `AVLTree(-5, "val")` | Internal attributes are `_key=-5`, `_value="val"`, `_h=1` |
 
 ## 2. `set(x: int, value: Any) → AVLTree`
