@@ -86,7 +86,13 @@ def test_set_left_left_no_rebalance() -> None:
     t = t.set(70, "c")
     t = t.set(60, "d")
     t = t.set(20, "f")
-    assert t.items() == [(20, "f"), (30, "b"), (50, "a"), (60, "d"), (70, "c")]
+    assert t._key == 50
+    assert t._l._key == 30
+    assert t._l._l._key == 20
+    assert t._l._l._value == "f"
+    assert t._r._key == 70
+    assert t._r._l._key == 60
+    assert t._r._l._value == "d"
 
 
 @pytest.mark.set
@@ -96,9 +102,11 @@ def test_set_left_left_with_rebalance() -> None:
     t = t.set(10, "a")
     t = t.set(5, "b")
     t = t.set(3, "c")
-    items = t.items()
-    assert items == [(3, "c"), (5, "b"), (10, "a")]
-    assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
+    assert t._key == 5
+    assert t._l._key == 3
+    assert t._l._value == "c"
+    assert t._r._key == 10
+    assert t._r._value == "a"
 
 
 @pytest.mark.set
@@ -121,7 +129,11 @@ def test_set_left_right_no_rebalance() -> None:
     t = t.set(20, "a")
     t = t.set(10, "b")
     t = t.set(30, "c")
-    assert t.items() == [(10, "b"), (20, "a"), (30, "c")]
+    assert t._key == 20
+    assert t._l._key == 10
+    assert t._l._value == "b"
+    assert t._r._key == 30
+    assert t._r._value == "c"
 
 
 @pytest.mark.set
@@ -131,9 +143,11 @@ def test_set_left_right_with_rebalance() -> None:
     t = t.set(10, "a")
     t = t.set(3, "b")
     t = t.set(5, "c")
-    items = t.items()
-    assert items == [(3, "b"), (5, "c"), (10, "a")]
-    assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
+    assert t._key == 5
+    assert t._l._key == 3
+    assert t._l._value == "b"
+    assert t._r._key == 10
+    assert t._r._value == "a"
 
 
 @pytest.mark.set
@@ -176,7 +190,13 @@ def test_set_right_left_no_rebalance() -> None:
     t = t.set(10, "b")
     t = t.set(40, "c")
     t = t.set(35, "d")
-    assert t.items() == [(10, "b"), (20, "a"), (35, "d"), (40, "c")]
+    assert t._key == 20
+    assert t._l._key == 10
+    assert t._l._value == "b"
+    assert t._r._key == 40
+    assert t._r._value == "c"
+    assert t._r._l._key == 35
+    assert t._r._l._value == "d"
 
 
 @pytest.mark.set
@@ -186,9 +206,11 @@ def test_set_right_left_with_rebalance() -> None:
     t = t.set(30, "a")
     t = t.set(40, "b")
     t = t.set(35, "c")
-    items = t.items()
-    assert items == [(30, "a"), (35, "c"), (40, "b")]
-    assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
+    assert t._key == 35
+    assert t._l._key == 30
+    assert t._l._value == "a"
+    assert t._r._key == 40
+    assert t._r._value == "b"
 
 
 @pytest.mark.set
@@ -211,7 +233,13 @@ def test_set_right_right_no_rebalance() -> None:
     t = t.set(10, "b")
     t = t.set(25, "c")
     t = t.set(30, "d")
-    assert t.items() == [(10, "b"), (20, "a"), (25, "c"), (30, "d")]
+    assert t._key == 20
+    assert t._l._key == 10
+    assert t._l._value == "b"
+    assert t._r._key == 25
+    assert t._r._value == "c"
+    assert t._r._r._key == 30
+    assert t._r._r._value == "d"
 
 
 @pytest.mark.set
@@ -221,9 +249,11 @@ def test_set_right_right_with_rebalance() -> None:
     t = t.set(30, "a")
     t = t.set(40, "b")
     t = t.set(50, "c")
-    items = t.items()
-    assert items == [(30, "a"), (40, "b"), (50, "c")]
-    assert all(items[i][0] <= items[i+1][0] for i in range(len(items)-1))
+    assert t._key == 40
+    assert t._l._key == 30
+    assert t._l._value == "a"
+    assert t._r._key == 50
+    assert t._r._value == "c"
 
 
 @pytest.mark.set
