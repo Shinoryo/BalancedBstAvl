@@ -1,4 +1,4 @@
-﻿# AVL Tree Library
+# AVL Tree Library
 
 A simple implementation of an AVL tree (self-balancing binary search tree). It stores values associated with keys and performs insertion, deletion, and search operations in $O(\log n)$ time.
 
