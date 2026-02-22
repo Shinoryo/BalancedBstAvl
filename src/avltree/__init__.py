@@ -1,4 +1,4 @@
-﻿"""AVL tree library."""
+"""AVL tree library."""
 
 from importlib.metadata import PackageNotFoundError, version
 
