@@ -126,9 +126,9 @@ def test_init_with_key_and_value() -> None:
 def test_set_to_empty_tree() -> None:
     """Test adding a node to an empty tree."""
     t = AVLTree()
-    t = t.set(5, "a")
+    t = t.set(0, "a")
     _assert_balanced(t)
-    assert t._key == 5
+    assert t._key == 0
     assert t._value == "a"
 
 
@@ -136,10 +136,10 @@ def test_set_to_empty_tree() -> None:
 def test_set_update_root() -> None:
     """Test updating the root node."""
     t = AVLTree()
-    t = t.set(5, "old")
-    t = t.set(5, "new")
+    t = t.set(0, "old")
+    t = t.set(0, "new")
     _assert_balanced(t)
-    assert t._key == 5
+    assert t._key == 0
     assert t._value == "new"
 
 
@@ -148,10 +148,10 @@ def test_set_insert_left() -> None:
     """Test inserting a node to the left of root."""
     t = AVLTree()
     t = t.set(10, "a")
-    t = t.set(5, "b")
+    t = t.set(-5, "b")
     _assert_balanced(t)
     assert t._key == 10
-    assert t._l._key == 5
+    assert t._l._key == -5
     assert t._l._value == "b"
 
 
@@ -160,8 +160,8 @@ def test_set_update_left() -> None:
     """Test updating a node to the left of root."""
     t = AVLTree()
     t = t.set(10, "a")
-    t = t.set(5, "b")
-    t = t.set(5, "b_new")
+    t = t.set(-5, "b")
+    t = t.set(-5, "b_new")
     _assert_balanced(t)
     assert t._l._value == "b_new"
 
@@ -174,11 +174,11 @@ def test_set_left_left_no_rebalance() -> None:
     t = t.set(30, "b")
     t = t.set(70, "c")
     t = t.set(60, "d")
-    t = t.set(20, "f")
+    t = t.set(-20, "f")
     _assert_balanced(t)
     assert t._key == 50
     assert t._l._key == 30
-    assert t._l._l._key == 20
+    assert t._l._l._key == -20
     assert t._l._l._value == "f"
     assert t._r._key == 70
     assert t._r._l._key == 60
@@ -190,11 +190,11 @@ def test_set_left_left_with_rebalance() -> None:
     """Test inserting a node to the left-left with rebalancing."""
     t = AVLTree()
     t = t.set(10, "a")
-    t = t.set(5, "b")
-    t = t.set(3, "c")
+    t = t.set(-5, "b")
+    t = t.set(-15, "c")
     _assert_balanced(t)
-    assert t._key == 5
-    assert t._l._key == 3
+    assert t._key == -5
+    assert t._l._key == -15
     assert t._l._value == "c"
     assert t._r._key == 10
     assert t._r._value == "a"
@@ -208,8 +208,8 @@ def test_set_update_left_left() -> None:
     t = t.set(30, "b")
     t = t.set(70, "c")
     t = t.set(60, "d")
-    t = t.set(20, "d")
-    t = t.set(20, "d_new")
+    t = t.set(-20, "d")
+    t = t.set(-20, "d_new")
     _assert_balanced(t)
     assert t._l._l._value == "d_new"
 
@@ -234,11 +234,11 @@ def test_set_left_right_with_rebalance() -> None:
     """Test inserting a node to the left-right with rebalancing."""
     t = AVLTree()
     t = t.set(10, "a")
-    t = t.set(3, "b")
-    t = t.set(5, "c")
+    t = t.set(-15, "b")
+    t = t.set(-5, "c")
     _assert_balanced(t)
-    assert t._key == 5
-    assert t._l._key == 3
+    assert t._key == -5
+    assert t._l._key == -15
     assert t._l._value == "b"
     assert t._r._key == 10
     assert t._r._value == "a"
@@ -249,7 +249,7 @@ def test_set_update_left_right() -> None:
     """Test updating a node to the left-right of root."""
     t = AVLTree()
     t = t.set(20, "a")
-    t = t.set(10, "b")
+    t = t.set(-10, "b")
     t = t.set(30, "c")
     t = t.set(30, "c_new")
     _assert_balanced(t)
@@ -347,14 +347,14 @@ def test_set_right_right_no_rebalance() -> None:
 def test_set_right_right_with_rebalance() -> None:
     """Test inserting a node to the right-right with rebalancing."""
     t = AVLTree()
-    t = t.set(30, "a")
-    t = t.set(40, "b")
-    t = t.set(50, "c")
+    t = t.set(-30, "a")
+    t = t.set(0, "b")
+    t = t.set(30, "c")
     _assert_balanced(t)
-    assert t._key == 40
-    assert t._l._key == 30
+    assert t._key == 0
+    assert t._l._key == -30
     assert t._l._value == "a"
-    assert t._r._key == 50
+    assert t._r._key == 30
     assert t._r._value == "c"
 
 
@@ -363,7 +363,7 @@ def test_set_update_right_right() -> None:
     """Test updating a node to the right-right of root."""
     t = AVLTree()
     t = t.set(20, "a")
-    t = t.set(10, "b")
+    t = t.set(-10, "b")
     t = t.set(25, "c")
     t = t.set(30, "d")
     t = t.set(30, "d_new")
@@ -377,8 +377,8 @@ def test_set_update_right_right() -> None:
 @pytest.mark.get
 def test_get_from_root_found() -> None:
     """Test getting value from root when key is found."""
-    t = AVLTree(10, "a")
-    assert t.get(10) == "a"
+    t = AVLTree(0, "a")
+    assert t.get(0) == "a"
 
 
 @pytest.mark.get
@@ -392,16 +392,16 @@ def test_get_from_root_not_found() -> None:
 def test_get_from_left_found() -> None:
     """Test getting value from left when key is found."""
     t = AVLTree(10, "a")
-    t._l = AVLTree(5, "b")
-    assert t.get(5) == "b"
+    t._l = AVLTree(-5, "b")
+    assert t.get(-5) == "b"
 
 
 @pytest.mark.get
 def test_get_from_left_not_found() -> None:
     """Test getting value from left when key is not found."""
     t = AVLTree(10, "a")
-    t._l = AVLTree(5, "b")
-    assert t.get(3) is None
+    t._l = AVLTree(-5, "b")
+    assert t.get(-15) is None
 
 
 @pytest.mark.get
@@ -410,8 +410,8 @@ def test_get_from_left_left_found() -> None:
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
-    t._l._l = AVLTree(10, "d")
-    assert t.get(10) == "d"
+    t._l._l = AVLTree(-10, "d")
+    assert t.get(-10) == "d"
 
 
 @pytest.mark.get
@@ -420,8 +420,8 @@ def test_get_from_left_left_not_found() -> None:
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
-    t._l._l = AVLTree(10, "d")
-    assert t.get(5) is None
+    t._l._l = AVLTree(-10, "d")
+    assert t.get(-25) is None
 
 
 @pytest.mark.get
@@ -430,7 +430,7 @@ def test_get_from_left_right_found() -> None:
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
-    t._l._l = AVLTree(10, "d")
+    t._l._l = AVLTree(-10, "d")
     t._l._r = AVLTree(30, "e")
     assert t.get(30) == "e"
 
@@ -449,7 +449,7 @@ def test_get_from_left_right_not_found() -> None:
 @pytest.mark.get
 def test_get_from_right_found() -> None:
     """Test getting value from right when key is found."""
-    t = AVLTree(10, "a")
+    t = AVLTree(0, "a")
     t._r = AVLTree(15, "b")
     assert t.get(15) == "b"
 
@@ -457,7 +457,7 @@ def test_get_from_right_found() -> None:
 @pytest.mark.get
 def test_get_from_right_not_found() -> None:
     """Test getting value from right when key is not found."""
-    t = AVLTree(10, "a")
+    t = AVLTree(0, "a")
     t._r = AVLTree(15, "b")
     assert t.get(20) is None
 
@@ -524,8 +524,8 @@ def test_get_default_specified() -> None:
 @pytest.mark.find
 def test_find_root_found() -> None:
     """Test finding root when key is found."""
-    t = AVLTree(10, "a")
-    assert t.find(10) is True
+    t = AVLTree(0, "a")
+    assert t.find(0) is True
 
 
 @pytest.mark.find
@@ -539,16 +539,16 @@ def test_find_root_not_found() -> None:
 def test_find_left_found() -> None:
     """Test finding left node when key is found."""
     t = AVLTree(10, "a")
-    t._l = AVLTree(5, "b")
-    assert t.find(5) is True
+    t._l = AVLTree(-5, "b")
+    assert t.find(-5) is True
 
 
 @pytest.mark.find
 def test_find_left_not_found() -> None:
     """Test finding left node when key is not found."""
     t = AVLTree(10, "a")
-    t._l = AVLTree(5, "b")
-    assert t.find(3) is False
+    t._l = AVLTree(-5, "b")
+    assert t.find(-15) is False
 
 
 @pytest.mark.find
@@ -557,8 +557,8 @@ def test_find_left_left_found() -> None:
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
-    t._l._l = AVLTree(10, "d")
-    assert t.find(10) is True
+    t._l._l = AVLTree(-10, "d")
+    assert t.find(-10) is True
 
 
 @pytest.mark.find
@@ -567,8 +567,8 @@ def test_find_left_left_not_found() -> None:
     t = AVLTree(40, "a")
     t._l = AVLTree(20, "b")
     t._r = AVLTree(60, "c")
-    t._l._l = AVLTree(10, "d")
-    assert t.find(5) is False
+    t._l._l = AVLTree(-10, "d")
+    assert t.find(-25) is False
 
 
 @pytest.mark.find
@@ -596,7 +596,7 @@ def test_find_left_right_not_found() -> None:
 @pytest.mark.find
 def test_find_right_found() -> None:
     """Test finding right node when key is found."""
-    t = AVLTree(10, "a")
+    t = AVLTree(0, "a")
     t._r = AVLTree(15, "b")
     assert t.find(15) is True
 
@@ -604,7 +604,7 @@ def test_find_right_found() -> None:
 @pytest.mark.find
 def test_find_right_not_found() -> None:
     """Test finding right node when key is not found."""
-    t = AVLTree(10, "a")
+    t = AVLTree(0, "a")
     t._r = AVLTree(15, "b")
     assert t.find(20) is False
 
@@ -657,12 +657,12 @@ def test_find_right_right_not_found() -> None:
 @pytest.mark.delete
 def test_delete_root_no_rebalance() -> None:
     """Test deleting root without rebalancing needed."""
-    left = AVLTree(5, "b")
+    left = AVLTree(-5, "b")
     t = AVLTree(10, "a")
     t._l = left
     t = t.delete(10)
     _assert_balanced(t)
-    assert t._key == 5
+    assert t._key == -5
     assert t._value == "b"
     assert t._l is None
     assert t._r is None
@@ -716,12 +716,12 @@ def test_delete_root_leaf() -> None:
 @pytest.mark.delete
 def test_delete_left_no_rebalance() -> None:
     """Test deleting from left without rebalancing needed."""
-    left = AVLTree(10, "b")
+    left = AVLTree(-10, "b")
     right = AVLTree(40, "c")
     t = AVLTree(30, "a")
     t._l = left
     t._r = right
-    t = t.delete(10)
+    t = t.delete(-10)
     _assert_balanced(t)
     assert t._key == 30
     assert t._l is None or t._l._key is None
@@ -753,20 +753,20 @@ def test_delete_left_with_rebalance() -> None:
 @pytest.mark.delete
 def test_delete_left_not_found() -> None:
     """Test deleting from left when target not found."""
-    left = AVLTree(10, "b")
+    left = AVLTree(-10, "b")
     t = AVLTree(30, "a")
     t._l = left
-    t = t.delete(5)
+    t = t.delete(-5)
     _assert_balanced(t)
     assert t._key == 30
-    assert t._l._key == 10
+    assert t._l._key == -10
     assert t._r is None
 
 
 @pytest.mark.delete
 def test_delete_left_with_children() -> None:
     """Test deleting node with two children from left subtree."""
-    left_left = AVLTree(20, "c")
+    left_left = AVLTree(-20, "c")
     left_right = AVLTree(40, "d")
     left = AVLTree(30, "b")
     left._l = left_left
@@ -778,10 +778,10 @@ def test_delete_left_with_children() -> None:
     assert t._key in (40, 50)
     if t._key == 50:
         assert t._l._key == 40
-        assert t._l._l._key == 20
+        assert t._l._l._key == -20
         assert t._l._r is None or t._l._r._key is None
     else:
-        assert t._l._key == 20
+        assert t._l._key == -20
         assert t._r._key == 50
 
 
@@ -902,11 +902,11 @@ def test_delete_left_right_not_found() -> None:
 def test_delete_right_no_rebalance() -> None:
     """Test deleting from right without rebalancing needed."""
     right = AVLTree(15, "b")
-    t = AVLTree(10, "a")
+    t = AVLTree(0, "a")
     t._r = right
     t = t.delete(15)
     _assert_balanced(t)
-    assert t._key == 10
+    assert t._key == 0
     assert t._l is None
     assert t._r is None or t._r._key is None
 
@@ -1189,56 +1189,56 @@ def test_items_empty_tree() -> None:
 @pytest.mark.items
 def test_items_single_node() -> None:
     """Test items() with single node."""
-    t = AVLTree(5, "a")
-    assert t.items() == [(5, "a")]
+    t = AVLTree(0, "a")
+    assert t.items() == [(0, "a")]
 
 
 @pytest.mark.items
 def test_items_two_nodes_ascending() -> None:
     """Test items() with two nodes inserted in ascending order."""
     right = AVLTree(2, "b")
-    t = AVLTree(1, "a")
+    t = AVLTree(-1, "a")
     t._r = right
-    assert t.items() == [(1, "a"), (2, "b")]
+    assert t.items() == [(-1, "a"), (2, "b")]
 
 
 @pytest.mark.items
 def test_items_two_nodes_descending() -> None:
     """Test items() with two nodes inserted in descending order."""
-    left = AVLTree(1, "b")
+    left = AVLTree(-1, "b")
     t = AVLTree(2, "a")
     t._l = left
-    assert t.items() == [(1, "b"), (2, "a")]
+    assert t.items() == [(-1, "b"), (2, "a")]
 
 
 @pytest.mark.items
 def test_items_three_nodes_ascending() -> None:
     """Test items() with three nodes inserted in ascending order."""
     right_right = AVLTree(3, "c")
-    right = AVLTree(2, "b")
+    right = AVLTree(0, "b")
     right._r = right_right
-    t = AVLTree(1, "a")
+    t = AVLTree(-1, "a")
     t._r = right
-    assert t.items() == [(1, "a"), (2, "b"), (3, "c")]
+    assert t.items() == [(-1, "a"), (0, "b"), (3, "c")]
 
 
 @pytest.mark.items
 def test_items_three_nodes_descending() -> None:
     """Test items() with three nodes inserted in descending order."""
-    left_left = AVLTree(1, "c")
-    left = AVLTree(2, "b")
+    left_left = AVLTree(-1, "c")
+    left = AVLTree(0, "b")
     left._l = left_left
     t = AVLTree(3, "a")
     t._l = left
-    assert t.items() == [(1, "c"), (2, "b"), (3, "a")]
+    assert t.items() == [(-1, "c"), (0, "b"), (3, "a")]
 
 
 @pytest.mark.items
 def test_items_three_nodes_mixed() -> None:
     """Test items() with three nodes inserted in mixed order."""
-    left = AVLTree(1, "b")
-    right = AVLTree(3, "c")
-    t = AVLTree(2, "a")
+    left = AVLTree(-5, "b")
+    right = AVLTree(10, "c")
+    t = AVLTree(0, "a")
     t._l = left
     t._r = right
-    assert t.items() == [(1, "b"), (2, "a"), (3, "c")]
+    assert t.items() == [(-5, "b"), (0, "a"), (10, "c")]
